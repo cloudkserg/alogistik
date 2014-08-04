@@ -1,0 +1,60 @@
+.dims (@elWidth, @elHeight) {
+  width: @elWidth;
+  height: @elHeight;
+}
+
+.square (@size) {
+  width: @size;
+  height: @size;
+}
+
+.bgi (@image, @bgPosX: 0, @bgPosY: 0, @bgRepeat: no-repeat) {
+  background: url("@{imagesPath}@{image}") @bgPosX @bgPosY @bgRepeat;
+}
+
+.bgpos (@posX: 0, @posY: 0) {
+  background-position: @posX @posY !important;
+}
+
+.inline-block() {
+  display: -moz-inline-stack;
+  display:inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+}
+
+.posa(@left: 0, @top: 0) {
+  position:absolute;
+  left: @left;
+  top: @top;
+}
+
+.replace-text() {
+  text-indent: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@highdpi: ~"(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx)";
+
+.at2x(@path, @w: auto, @h: auto, @posX: 0, @posY: 0, @repeat: no-repeat) {
+  background-image: url("@{imagesPath}@{path}");
+  background-position: @posX @posY;
+  background-repeat: @repeat;
+
+  @at2x_path: ~`@{path}.replace(/\.\w+$/, function(match) { return "@2x" + match; })`;
+
+  @bgSize: ~`bgsize = function(width, height) {
+                 if (width === 'auto' && height === 'auto') {
+                     return 'contain'
+                 } else {
+                     return width + ' ' + height
+                 }
+             }`;
+
+  @media @highdpi {
+    background-image: url("@{imagesPath}@{at2x_path}");
+    background-size: ~`bgsize('@{w}', '@{h}')`;
+  }
+}
