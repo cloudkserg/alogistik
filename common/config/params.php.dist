@@ -1,0 +1,33 @@
+<?php
+//Часовой пояс
+date_default_timezone_set('Asia/Omsk');
+//Указываем кодировку
+mb_internal_encoding('utf-8');
+
+return array(
+    'components' => array(
+        'db' => array(
+            'connectionString' => 'mysql:host=localhost;dbname=alogistik',
+            'emulatePrepare' => true,
+            'username' => 'USER',
+            'password' => 'PASSWORD',
+            'charset' => 'utf8',
+        ),
+    ),
+
+    'params' => array(
+        'debug' => true,
+
+        'mails' => array(
+            'adminEmail' => 'admin@ixtlan.org',
+            'siteEmail' => 'sites@ixtlan.org',
+        ),
+        'superuser' => array(
+            'id' => '-1',
+            'login' => 'superuser',
+            'password' => 'c4ca4238a0b923820dcc509a6f75849b',
+            'fullname' => 'Суперпользователь'
+        ),
+    ),
+
+);

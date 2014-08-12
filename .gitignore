@@ -1,0 +1,30 @@
+#Логи
+protected/runtime/*
+admin/runtime/*
+
+#Картинки и файлы
+webroot/image/**/*
+webroot/file/**/*
+
+#Всякая хрень
+webroot/assets/**/*
+pleskstat/**/*
+
+
+#vendor
+vendor
+
+#Общие файлы
+common/config/params.php
+
+#Dev конфиги
+protected/config/dev.php
+admin/config/dev.php
+webroot/index_dev.php
+webroot/admin_dev.php
+
+#local конфиги
+*.local.php
+
+#Скрипты
+nbproject
