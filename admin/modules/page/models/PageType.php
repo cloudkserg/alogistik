@@ -8,7 +8,8 @@
  */
 class PageType extends ConstDirectoryModel
 {
-    const PRICE = 0;
+    const CAR_PRICE = 0;
+    const MATERIAL_PRICE = 1;
 
 
     /**
@@ -19,7 +20,8 @@ class PageType extends ConstDirectoryModel
     public function getTitles()
     {
         return array(
-            self::PRICE => 'Прайс'
+            self::CAR_PRICE => 'Прайс по машинам',
+            self::MATERIAL_PRICE => 'Прайс по материалам'
         );
     }
 

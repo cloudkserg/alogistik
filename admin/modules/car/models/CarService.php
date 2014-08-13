@@ -103,18 +103,7 @@ class CarService extends CmsModel
     {
         return array(
             'thumbs' => array(
-                'min'  => array(
-                    'mode' => 'adaptive_crop',
-                    'resize' => array(
-                        'width' => '130',
-                        'height' => '100',
-                    ),
-                    'crop' => array(
-                        'width' => '130',
-                        'height' => '100',
-                    ),
-                ),
-                'full' => array(
+                'bg' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
                         'width' => '500',
@@ -125,7 +114,7 @@ class CarService extends CmsModel
                         'height' => '300',
                     ),
                 ),
-                'view' => array(
+                'alt' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
                         'width' => '165',
@@ -136,12 +125,6 @@ class CarService extends CmsModel
                         'height' => '125',
                     ),
                 ),
-                'gallery' => array(
-                    'mode' => 'adaptive_crop',
-                    'resize' => array(
-                        'width' => 140
-                    )
-                )
             ),
         );
     }

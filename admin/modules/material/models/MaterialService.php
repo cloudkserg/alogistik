@@ -61,7 +61,7 @@ class MaterialService extends CmsModel
     public function relations()
     {
         return array(
-            'materialFractions' => array(self::HAS_MANY, 'MaterialFraction', 'material_service_id'),
+            'fractions' => array(self::HAS_MANY, 'MaterialFraction', 'material_service_id'),
             'material' => array(self::BELONGS_TO, 'Material', 'material_id'),
 
             'images' => ImageRelationDescription::create($this->abbrModel),
@@ -101,18 +101,7 @@ class MaterialService extends CmsModel
     {
         return array(
             'thumbs' => array(
-                'min'  => array(
-                    'mode' => 'adaptive_crop',
-                    'resize' => array(
-                        'width' => '130',
-                        'height' => '100',
-                    ),
-                    'crop' => array(
-                        'width' => '130',
-                        'height' => '100',
-                    ),
-                ),
-                'full' => array(
+                'bg' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
                         'width' => '500',
@@ -123,7 +112,7 @@ class MaterialService extends CmsModel
                         'height' => '300',
                     ),
                 ),
-                'view' => array(
+                'alt' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
                         'width' => '165',
@@ -134,12 +123,6 @@ class MaterialService extends CmsModel
                         'height' => '125',
                     ),
                 ),
-                'gallery' => array(
-                    'mode' => 'adaptive_crop',
-                    'resize' => array(
-                        'width' => 140
-                    )
-                )
             ),
         );
     }

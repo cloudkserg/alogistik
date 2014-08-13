@@ -17,12 +17,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $sliders = Slider::model()->published()->sort()->findAll();
+
+        $carPage = PageHelper::findForType(PageType::CAR_PRICE);
+        $materialPage = PageHelper::findForType(PageType::MATERIAL_PRICE);
+
+        $carServices = CarService::model()->sort()->findAll();
+        $materialServices = MaterialService::model()->sort()->findAll();
+        $services = Service::model()->sort()->findAll();
 
         $this->render(
             'index',
             array(
-                'sliders' => $sliders
+                'carPage' => $carPage,
+                'materialPage' => $materialPage,
+
+                'carServices' => $carServices,
+                'materialServices' => $materialServices,
+                'services' => $services
             )
         );
     }
