@@ -2,6 +2,16 @@
 <section id="content">
 <h2><?=$this->pageTitle?><span></span></h2>
 <div class="clear"></div>
+<?php $this->widget('WFilter', array(
+    'strings' => array(
+        array(
+            new ListFilterElement('material_service_id', MaterialService::model()->getData()),
+            new SubmitFilterElement()
+        )
+    )
+
+)); ?>
+<div class="clear"></div>
 <?php
 $this->widget('ModelTable', array(
     'dataProvider' => $dataProvider,

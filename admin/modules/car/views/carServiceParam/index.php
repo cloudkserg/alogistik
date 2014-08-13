@@ -5,7 +5,7 @@
 <?php $this->widget('WFilter', array(
     'strings' => array(
         array(
-            new ListFilterElement('service_id', Service::model()->getData()),
+            new ListFilterElement('car_service_id', CarService::model()->getData()),
             new SubmitFilterElement()
         )
     )
@@ -18,11 +18,8 @@ $this->widget('ModelTable', array(
     'columns' => array(
         'id' => array('type' => 'id', 'width' => '50px'),
         'title' => array('type' => 'title', 'width' => '150px'),
-        'service' => array('title' => 'Сервис', 'value' => function ($row){
-            return $row->getRelation('service')->title;
-        }),
-        'cars' => array('title' => 'Машины', 'value' => function ($row){
-            return CarHelper::printItems($row->cars);
+        'carService' => array('title' => 'Сервис машины', 'value' => function ($row){
+            return $row->getRelation('carService')->title;
         }),
     )
 ));

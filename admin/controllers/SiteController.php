@@ -50,7 +50,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->redirect(array("/project/district/index"));
+        $this->redirect(array("/car/carService/index"));
     }
 
 

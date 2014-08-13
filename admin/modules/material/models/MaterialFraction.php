@@ -19,6 +19,24 @@ class MaterialFraction extends CmsModel
         return 'material_fractions';
     }
 
+    /**
+     * applySearch
+     *
+     * @param mixed $filter
+     * @return void
+     */
+    public function applySearch($filter)
+    {
+        $criteria = new CDbCriteria();
+
+        if (isset($filter->material_service_id)) {
+            $this->forMaterialService($filter->material_service_id);
+        }
+    
+    
+        return $this;
+    }
+
 
 
     /**
@@ -32,7 +50,7 @@ class MaterialFraction extends CmsModel
             array('title', 'required'),
             array('title', 'VText'),
 
-            array('price, material_service_id', 'numerical'),
+            array('price, material_service_id,sort', 'numerical'),
         );
     }
 
@@ -67,6 +85,17 @@ class MaterialFraction extends CmsModel
 
 
 
+    /**
+     * forMaterialService
+     *
+     * @param int $service_id
+     * @return MaterialFraction
+     */
+    public function forMaterialService($service_id)
+    {
+        $this->getDbCriteria()->compare('material_service_id', $service_id);
+        return $this;
+    }
 
 
 

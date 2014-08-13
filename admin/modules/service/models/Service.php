@@ -30,8 +30,9 @@ class Service extends CmsModel
     {
         return array(
             array('title', 'required'),
-            array('title', 'VText', 'max' => 1024),
-            array('text', 'VText', 'max' => VText::MAX)
+            array('title', 'VText'),
+            array('text', 'VText', 'max' => VText::MAX),
+            array('sort', 'numerical')
         );
     }
 

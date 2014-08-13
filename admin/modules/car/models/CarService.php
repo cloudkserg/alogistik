@@ -1,12 +1,12 @@
 <?php
 /**
- * MaterialService
+ * CarService
  *
  * @version 1.0.0
  * @copyright Copyright 2011 by Kirya <cloudkserg11@gmail.com>
  * @author Kirya <cloudkserg11@gmail.com>
  */
-class MaterialService extends CmsModel
+class CarService extends CmsModel
 {
 
     /**
@@ -16,7 +16,7 @@ class MaterialService extends CmsModel
      */
     public function tableName()
     {
-        return 'material_services';
+        return 'car_services';
     }
 
     /**
@@ -31,7 +31,7 @@ class MaterialService extends CmsModel
             array(
                 'imageBeh' => array(
                     'class' => 'ImageBehavior',
-                ),
+                )
             )
         );
     }
@@ -46,10 +46,9 @@ class MaterialService extends CmsModel
     {
         return array(
             array('title', 'required'),
-            array('title', 'VText'),
+            array('title, length, width, height', 'VText'),
             array('text', 'VText', 'max' => VText::MAX),
-
-            array('material_id, begin_price, sort', 'numerical'),
+            array('sort, car_id, begin_price', 'numerical')
         );
     }
 
@@ -61,8 +60,8 @@ class MaterialService extends CmsModel
     public function relations()
     {
         return array(
-            'materialFractions' => array(self::HAS_MANY, 'MaterialFraction', 'material_service_id'),
-            'material' => array(self::BELONGS_TO, 'Material', 'material_id'),
+            'car' => array(self::BELONGS_TO, 'Car', 'car_id'),
+            'params' => array(self::HAS_MANY, 'CarServiceParam', 'car_service_id'),
 
             'images' => ImageRelationDescription::create($this->abbrModel),
             'pubImages' => ImageRelationDescription::createPublished($this->abbrModel),
@@ -80,9 +79,12 @@ class MaterialService extends CmsModel
             parent::attributeLabels(),
             array(
                 'title'        => 'Название',
-                'material_id'         => 'Материал',
-                'begin_price' => 'Начальная цена',
-                'text' => 'Текст'
+                'text'         => 'Текст',
+                'length'         => 'Длина',
+                'width'         => 'Ширина',
+                'height'         => 'Высота',
+                'begin_price'         => 'Начальная цена',
+                'car_id'         => 'Машина',
             )
         );
     }
@@ -143,7 +145,6 @@ class MaterialService extends CmsModel
             ),
         );
     }
-
 
 
 

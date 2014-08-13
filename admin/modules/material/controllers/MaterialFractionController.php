@@ -46,7 +46,8 @@ class MaterialFractionController extends Controller
         return array(
             'adminBeh' => array(
                 'class' => 'AdminControllerBehavior',
-                'nameModel' => 'MaterialFraction'
+                'nameModel' => 'MaterialFraction',
+                'filter' => new MaterialFractionFilter
             )
         );
     }

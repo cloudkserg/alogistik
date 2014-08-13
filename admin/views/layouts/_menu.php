@@ -2,6 +2,17 @@
     <ul>
         <?php
             $this->widget('PointMenu', array(
+                    'label'  => 'Машины',
+                    'links' => array(
+                        new ALink(new AModuleUrl('/car/car'), 'Машины'),
+                        new ALink(new AModuleUrl('/car/carService'), 'Сервисы машин'),
+                        new ALink(new AModuleUrl('/car/carServiceParam'), 'Параметры сервисов'),
+                    )
+                )
+            );
+        ?>
+        <?php
+            $this->widget('PointMenu', array(
                     'label'  => 'Материалы',
                     'links' => array(
                         new ALink(new AModuleUrl('/material/material'), 'Материалы'),

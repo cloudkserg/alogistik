@@ -1,12 +1,12 @@
 <?php
 /**
- * ServiceItem
+ * CarServiceParam
  *
  * @version 1.0.0
  * @copyright Copyright 2011 by Kirya <cloudkserg11@gmail.com>
  * @author Kirya <cloudkserg11@gmail.com>
  */
-class ServiceItem extends CmsModel
+class CarServiceParam extends CmsModel
 {
 
     /**
@@ -16,25 +16,9 @@ class ServiceItem extends CmsModel
      */
     public function tableName()
     {
-        return 'service_items';
+        return 'car_service_params';
     }
 
-    /**
-     * behaviors
-     *
-     * @return void
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            array(
-                'manyManyBeh' => array(
-                    'class' => 'ManyManyBehavior',
-                ),
-            )
-        );
-    }
 
     /**
      * applySearch
@@ -46,8 +30,8 @@ class ServiceItem extends CmsModel
     {
         $criteria = new CDbCriteria();
 
-        if (isset($filter->service_id)) {
-            $this->forService($filter->service_id);
+        if (isset($filter->car_service_id)) {
+            $this->forCarService($filter->car_service_id);
         }
     
     
@@ -63,10 +47,8 @@ class ServiceItem extends CmsModel
     {
         return array(
             array('title', 'required'),
-            array('title', 'VText', 'max' => 1024),
-            array('text', 'VText', 'max' => 150000),
-            array('sort, service_id', 'numerical'),
-            array('cars', 'VRelation'),
+            array('title, value', 'VText'),
+            array('sort, car_service_id', 'numerical')
         );
     }
 
@@ -78,8 +60,7 @@ class ServiceItem extends CmsModel
     public function relations()
     {
         return array(
-            'cars' => array(self::MANY_MANY, 'Car', array('service_item_id', 'car_id')),
-            'service' => array(self::BELONGS_TO, 'Service', 'service_id')
+            'carService' => array(self::BELONGS_TO, 'CarService', 'car_service_id')
         );
     }
 
@@ -94,25 +75,26 @@ class ServiceItem extends CmsModel
             parent::attributeLabels(),
             array(
                 'title'        => 'Название',
-                'text'         => 'Текст',
-                'service_id' => 'Сервис',
-                'cars' => 'Машины'
+                'value' => 'Значение',
+                'car_service_id'         => 'Сервис машины'
             )
         );
     }
 
 
     /**
-     * forService
+     * forCarService
      *
      * @param int $service_id
-     * @return ServiceItem
+     * @return CarFraction
      */
-    public function forService($service_id)
+    public function forCarService($service_id)
     {
-        $this->getDbCriteria()->compare('service_id', $service_id);
+        $this->getDbCriteria()->compare('car_service_id', $service_id);
         return $this;
     }
+
+
 
 
 }

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Description of ServiceItemController
+ * Description of CarServiceController
  *
  * @author art3mk4
  */
-class ServiceItemController extends Controller
+class CarServiceController extends Controller
 {
 
     /**
@@ -46,8 +46,7 @@ class ServiceItemController extends Controller
         return array(
             'adminBeh' => array(
                 'class' => 'AdminControllerBehavior',
-                'nameModel' => 'ServiceItem',
-                'filter' => new ServiceItemFilter()
+                'nameModel' => 'CarService'
             )
         );
     }

@@ -1,12 +1,12 @@
 <?php
 /**
- * Material
+ * Car
  *
  * @version 1.0.0
  * @copyright Copyright 2011 by Kirya <cloudkserg11@gmail.com>
  * @author Kirya <cloudkserg11@gmail.com>
  */
-class Material extends CmsModel
+class Car extends CmsModel
 {
 
     /**
@@ -16,7 +16,7 @@ class Material extends CmsModel
      */
     public function tableName()
     {
-        return 'materials';
+        return 'cars';
     }
 
 
@@ -30,18 +30,7 @@ class Material extends CmsModel
         return array(
             array('title', 'required'),
             array('title', 'VText'),
-            array('density,sort', 'numerical'),
-        );
-    }
-
-    /**
-     * relations
-     *
-     * @return void
-     */
-    public function relations()
-    {
-        return array(
+            array('sort', 'numerical')
         );
     }
 
@@ -55,11 +44,11 @@ class Material extends CmsModel
         return array_merge(
             parent::attributeLabels(),
             array(
-                'title'        => 'Название',
-                'density'         => 'Плотность'
+                'title'        => 'Название'
             )
         );
     }
+
 
 
 }
