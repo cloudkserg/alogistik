@@ -1,7 +1,7 @@
 <div class="converter">
     <select class="converter__material_chooser">
         <?php foreach ($materials as $material) : ?>
-            <option data-data='{"text": "<?=$material->title?>", "destiny": "<?=$materal->density?>"}' value="<?=$material->id?>"></option>
+            <option data-data='{"text": "<?=$material->title?>", "destiny": "<?=$material->density?>"}' value="<?=$material->id?>"></option>
         <?php endforeach; ?>
     </select>
     <div class="converter__input_container" data-units="tonns">

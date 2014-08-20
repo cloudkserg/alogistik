@@ -36,7 +36,7 @@
                                 <p class="sale-material__see_more_text">Узнать<br/>больше</p>
                             </div>
                         </div>
-                    <h3 class="sale-material__name"><?=$service->material->title?></h3>
+                    <h3 class="sale-material__name"><?=$service->getRelation('material')->title?></h3>
                     <p class="sale-material__price"><?=$service->begin_price?><span class="ruble">p</span></p>
                 </div><!-- /end .sale-material -->
             <?php endforeach; ?>
