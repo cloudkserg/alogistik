@@ -10,13 +10,13 @@
                 <p class="service__desc_additional">Бесплатная&nbsp;доставка для грузов больше 5&nbsp;тонн</p>
 
                 <?php if (isset($priceFile)) : ?>
-                   <a class="service__download_price_btn" href="<?=FileHelper::firstFile($pricePage)?>">Скачать прайс-лист</a>
+                   <a class="service__download_price_btn" href="<?=PFileHelper::firstFile($pricePage)?>">Скачать прайс-лист</a>
                 <?php endif; ?>
             </div><!-- /end .service__desc -->
 
             <div class="service__content_inner">
             <?php foreach ($services as $service) : ?>
-                <div class="sale-material" data-bg="<?=ImageHelper::firstImage($service->first, 'bg')?>" 
+                <div class="sale-material" data-bg="<?=PImageHelper::firstImage($service->first, 'bg')?>" 
                     data-popup-data='{
                         "desc": "<?=$service->text?>", 
                         "types": [
@@ -31,7 +31,7 @@
                 >
 
                         <div class="sale-material__img_container">
-                            <img class="sale-material__img" src="<?=ImageHelper::firstImage($service, 'alt')?>" alt="altText"/>
+                            <img class="sale-material__img" src="<?=PImageHelper::firstImage($service, 'alt')?>" alt="altText"/>
                             <div class="sale-material__see_more">
                                 <p class="sale-material__see_more_text">Узнать<br/>больше</p>
                             </div>

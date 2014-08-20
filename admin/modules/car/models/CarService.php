@@ -130,6 +130,15 @@ class CarService extends CmsModel
     }
 
 
+    /**
+     * published
+     *
+     * @return void
+     */
+    public function published()
+    {
+        return $this;
+    }
 
 
 }

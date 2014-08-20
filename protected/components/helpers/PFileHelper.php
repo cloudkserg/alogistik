@@ -1,28 +1,27 @@
 <?php
 /**
- * ImageHelper
+ * PFileHelper
  *
  * @version 1.0.0
  * @copyright Copyright 2011 by Kirya <cloudkserg11@gmail.com>
  * @author Kirya <cloudkserg11@gmail.com>
  */
-class ImageHelper
+class PFileHelper
 {
 
     /**
-     * firstImage
+     * firstFile
      *
      * @param mixed $item
-     * @param mixed $scheme
      * @return void
      */
-    public static function firstImage($item, $scheme = null)
+    public static function firstFile($item)
     {
-        if (!isset($item->images[0])) {
+        if (!isset($item->files[0])) {
             return '';
         }
 
-        return GetUrl::getImageUrl($item->images[0], $scheme);
+        return GetUrl::getFileUrl($item->files[0]);
     }
 
 }
