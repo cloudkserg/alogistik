@@ -47,10 +47,10 @@ class MaterialService extends CmsModel
         return array(
             array('title,', 'required'),
             array('text, material_id, begin_price', 'required', 'except' => 'insert'),
-            array('title', 'VText'),
+            array('title, begin_price', 'VText'),
             array('text', 'VText', 'max' => VText::MAX),
 
-            array('material_id, begin_price, sort', 'numerical'),
+            array('material_id, sort', 'numerical'),
         );
     }
 

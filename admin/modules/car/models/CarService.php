@@ -46,9 +46,9 @@ class CarService extends CmsModel
     {
         return array(
             array('title', 'required'),
-            array('title, length, width, height', 'VText'),
+            array('title, length, width, height, begin_price', 'VText'),
             array('text', 'VText', 'max' => VText::MAX),
-            array('sort, car_id, begin_price', 'numerical')
+            array('sort, car_id', 'numerical')
         );
     }
 
