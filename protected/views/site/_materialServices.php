@@ -16,7 +16,7 @@
 
             <div class="service__content_inner">
             <?php foreach ($services as $service) : ?>
-                <div class="sale-material" data-bg="<?=PImageHelper::firstImage($service->first, 'bg')?>" 
+                <div class="sale-material" data-bg="<?=PImageHelper::firstImage($service, 'bg')?>" 
                     data-popup-data='{
                         "desc": "<?=$service->text?>", 
                         "types": [
