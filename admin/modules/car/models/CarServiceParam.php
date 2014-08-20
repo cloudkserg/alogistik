@@ -95,6 +95,15 @@ class CarServiceParam extends CmsModel
     }
 
 
+    /**
+     * published
+     *
+     * @return void
+     */
+    public function published()
+    {
+        return $this;
+    }
 
 
 }

@@ -5,7 +5,7 @@
                 <h2 class="service__head">Аренда самосвалов и&nbsp;спецтехники</h2>
                 <p class="service__desc_additional">Вся спецтехника арендуется только&nbsp;с&nbsp;водителем</p>
 
-                <a class="service__download_price_btn" href="<?=FileHelper::firstFile($page)?>">Скачать прайс-лист</a>
+                <a class="service__download_price_btn" href="<?=PFileHelper::firstFile($page)?>">Скачать прайс-лист</a>
                 <p class="service__price_desc">В прайс-листе содержится информация обо всех услугах, технике и их стоимости</p>
             </div>
 
@@ -28,7 +28,7 @@
                     ]
                 }'>
                     <div class="rent-spec-technic__img_container">
-                        <img class="rent-spec-technic__img" src="<?=ImageHelper::firstImage($service, 'alt')?>" alt="altText"/>
+                        <img class="rent-spec-technic__img" src="<?=PImageHelper::firstImage($service, 'alt')?>" alt="altText"/>
                         <div class="rent-spec-technic__see_more">
                             <p class="rent-spec-technic__see_more_text">Узнать больше</p>
                         </div>

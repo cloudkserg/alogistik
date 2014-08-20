@@ -61,5 +61,14 @@ class Material extends CmsModel
         );
     }
 
+    /**
+     * published
+     *
+     * @return void
+     */
+    public function published()
+    {
+        return $this;
+    }
 
 }

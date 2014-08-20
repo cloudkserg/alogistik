@@ -97,6 +97,15 @@ class MaterialFraction extends CmsModel
         return $this;
     }
 
+    /**
+     * published
+     *
+     * @return void
+     */
+    public function published()
+    {
+        return $this;
+    }
 
 
 }
