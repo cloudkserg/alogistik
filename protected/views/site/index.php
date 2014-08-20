@@ -1,6 +1,6 @@
 <section class="main-content">
 
-    <?php $this->renderPartial('_materialServices', array('services' => $materialServices, 'page' => $materialPage))?>
+    <?php $this->renderPartial('_materialServices', array('services' => $materialServices, 'page' => $materialPage))?>  
     
     <?php $this->renderPartial('_carServices', array('services' => $carServices, 'page' => $carPage))?>
     

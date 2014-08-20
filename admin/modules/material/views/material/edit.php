@@ -14,7 +14,7 @@
     <?php $this->widget('TextField',array(
             'model' => $item,
             'field' => 'density',
-            'label' => 'Плотность'
+            'label' => 'Плотность (т/м<sup>3</sup>)'
         )
     );
     ?>

@@ -72,15 +72,16 @@ ul, p, h1, h2, h3, h4 {
   right: 15px;
   .square(40px);
   border-radius: 10px;
-  background-image: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
+  background: #68A8DA;
+  background: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
   box-shadow: inset 0px -2px 2px 0px #3D86B8;
   cursor: pointer;
 
-  &.show {
+  &.visible {
     animation: flip 500ms both;
   }
 
-  &.hide {
+  &.hidden {
     animation: flipOutX 500ms both;
   }
 
@@ -95,7 +96,7 @@ ul, p, h1, h2, h3, h4 {
   }
 
   &:active {
-    background-image: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
+    background: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
 
     &:before {
       background-position: 5px 6px;
@@ -116,6 +117,10 @@ ul, p, h1, h2, h3, h4 {
   background: rgba(0, 0, 0, 0.50);
   z-index: 11;
   transition: opacity 300ms;
+}
+
+.ie8 .overlay {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgqAcAAIIAgLO2btEAAAAASUVORK5CYII=);
 }
 
 /* ==========================================================================
@@ -216,7 +221,8 @@ ul, p, h1, h2, h3, h4 {
     .online-call-btn {
       .dims(150px, 34px);
       border-radius: 15px;
-      background-image: linear-gradient(-180deg, #8DEE36 0%, #5DB30F 50%, #3F7D08 97%);
+      background: #5DB30F;
+      background: linear-gradient(-180deg, #8DEE36 0%, #5DB30F 50%, #3F7D08 97%);
       box-shadow: inset 0px -2px 2px 0px #5AAE0E;
       text-shadow: 0px 1px 2px rgba(0,0,0,0.50);
       font-size: 15px;
@@ -224,7 +230,7 @@ ul, p, h1, h2, h3, h4 {
       text-align: center;
       color: #fff;
       cursor: pointer;
-      transition: box-shadow 300ms, background-image 300ms, color 300ms;
+      transition: box-shadow 300ms, background 300ms, color 300ms;
       margin-top :((@headerHeight - 34px) / 2);
 
       &:hover {
@@ -233,8 +239,16 @@ ul, p, h1, h2, h3, h4 {
       }
 
       &:active {
-        background-image: linear-gradient(0deg, #8DEE36 0%, #5DB30F 50%, #3F7D08 97%);
+        background: linear-gradient(0deg, #8DEE36 0%, #5DB30F 50%, #3F7D08 97%);
         line-height: 34px;
+      }
+    }
+
+    .ie8 .online-call-btn {
+      &:hover {
+        background: #3F7D08;
+        border: none;
+        line-height: 32px;
       }
     }
 
@@ -278,6 +292,7 @@ ul, p, h1, h2, h3, h4 {
         color: @defLinkColor;
         text-decoration: none;
         opacity: 1;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
         transition: opacity 300ms, color 300ms;
 
         &:hover {
@@ -291,12 +306,6 @@ ul, p, h1, h2, h3, h4 {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1)
   }
-
-    .header__inner.header__inner {
-      & > * {
-        margin-top: 0;
-      }
-    }
 
       .logo {
         cursor: pointer;
@@ -313,7 +322,7 @@ ul, p, h1, h2, h3, h4 {
         }
 
       .online-call-btn {
-        background-image: none;
+        background: none;
         box-shadow: none;
         text-shadow: none;
         .inline-block;
@@ -347,9 +356,43 @@ ul, p, h1, h2, h3, h4 {
 
         .short-company-info__link_to_full_info {
           opacity: 0;
+          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
           position: absolute;
-          transform: translateX(-9999px) translateY(-9999px);
+          left: -9999px;
+          top: -9999px;
         }
+}
+
+.flexbox .headerMinimized {
+  .header__inner.header__inner {
+    & > * {
+      margin-top: 0;
+    }
+  }
+}
+
+.ie8 .headerMinimized {
+  .header {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4/wkAAvMB8suBnGEAAAAASUVORK5CYII=);
+    border-bottom: 1px solid #ccc;
+  }
+
+  .logo {
+    -ms-behavior: url(/js/vendors/backgroundsize.min.htc);
+  }
+  
+  .online-call-btn {
+    background: none;
+    -ms-behavior: none;
+  }
+}
+
+.csstransforms .headerMinimized{
+  .short-company-info__link_to_full_info {
+    top: auto;
+    left: auto;
+    transform: translateX(-9999px) translateY(-9999px);
+  }
 }
 
 
@@ -358,20 +401,34 @@ ul, p, h1, h2, h3, h4 {
    ========================================================================== */
 
 .main-content {
+  position: relative;
+  top: @headerHeight;
   padding-bottom: @headerHeight;
+}
+
+.csstransforms .main-content {
+  top: auto;
   transform: translateY(@headerHeight);
   transition: transform 300ms ease-in-out;
 }
 
   .main-content__inner {
-    background-image: linear-gradient(0deg, #FFFFFF 1%, #C0D0AE 15%, #E6F5D2 35%, #FFDAAA 66%, #92D1FF 100%);
+    background: linear-gradient(0deg, #FFFFFF 1%, #C0D0AE 15%, #E6F5D2 35%, #FFDAAA 66%, #92D1FF 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#92D1FF', endColorstr='#FFFFFF',GradientType=0);
     padding-bottom: 40px;
   }
 
 .headerMinimized {
   .main-content {
-    transform: translateY(@headerMinimizedHeight);
+    top: @headerMinimizedHeight;
     padding-bottom: @headerMinimizedHeight;
+  }
+}
+
+.csstransforms .headerMinimized {
+  .main-content {
+    top: auto;
+    transform: translateY(@headerMinimizedHeight);
   }
 }
 
@@ -395,6 +452,10 @@ ul, p, h1, h2, h3, h4 {
       background: rgba(255, 255, 255, 0.7);
       border-radius: 8px;
       overflow: hidden;
+    }
+
+    .ie8 .service__content {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4vwkAArMBsonMJUgAAAAASUVORK5CYII=);
     }
       
       .service__desc {
@@ -431,7 +492,8 @@ ul, p, h1, h2, h3, h4 {
           color: #fff;
           text-shadow: 0px 1px 2px rgba(0,0,0,0.50);
           border-radius: 10px;
-          background-image: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
+          background: #3D7CB5;
+          background: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
           box-shadow: inset 0px -2px 2px 0px #3D86B8;
           cursor: pointer;
           margin-bottom: 14px;
@@ -443,8 +505,16 @@ ul, p, h1, h2, h3, h4 {
           }
           
           &:active {
-            background-image: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
+            background: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
             line-height: 40px;
+          }
+        }
+        
+        .ie8 .service__download_price_btn {
+          &:hover {
+            border: none;
+            line-height: 38px;
+            background: #83C4EE;
           }
         }
 
@@ -527,6 +597,16 @@ ul, p, h1, h2, h3, h4 {
       }
     }
 
+    .ie8 .sale-material__img_container {
+      -ms-behavior: url(/js/vendors/PIE.htc);
+
+      &:hover {
+        .sale-material__see_more {
+          display: block;
+        }
+      }
+    }
+
       .sale-material__img {
         width: 230px;
         height: 173px;
@@ -546,6 +626,11 @@ ul, p, h1, h2, h3, h4 {
         cursor: pointer;
         opacity: 0;
         transition: opacity 300ms;
+      }
+
+      .ie8 .sale-material__see_more {
+        display: none;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgmAkAAJwAmsoF3fMAAAAASUVORK5CYII=);
       }
 
         .sale-material__see_more_text {
@@ -575,6 +660,11 @@ ul, p, h1, h2, h3, h4 {
       font-size: 14px;
       line-height: 19px;
       padding: 3px 10px 1px;
+    }
+
+    .ie8 .sale-material__price {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOIMjOrBwAC+gFG771l3QAAAABJRU5ErkJggg==);
+      padding-bottom: 3px;
     }
 
 
@@ -611,6 +701,16 @@ ul, p, h1, h2, h3, h4 {
       }
     }
 
+    .ie8 .rent-spec-technic__img_container {
+      -ms-behavior: url(/js/vendors/PIE.htc);
+
+      &:hover {
+        .rent-spec-technic__see_more {
+          display: block;
+        }
+      }
+    }
+
       .rent-spec-technic__see_more {
         .dims(196px, 121px);
         background: rgba(0, 0, 0, 0.6);
@@ -621,6 +721,11 @@ ul, p, h1, h2, h3, h4 {
         cursor: pointer;
         opacity: 0;
         transition: opacity 300ms;
+      }
+
+      .ie8 .rent-spec-technic__see_more {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgmAkAAJwAmsoF3fMAAAAASUVORK5CYII=);
+        display: none;
       }
 
         .rent-spec-technic__see_more_text {
@@ -702,7 +807,8 @@ ul, p, h1, h2, h3, h4 {
       color: #fff;
       text-shadow: 0px 1px 2px rgba(0,0,0,0.50);
       border-radius: 10px;
-      background-image: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
+      background: #68A8DA;
+      background: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
       box-shadow: inset 0px -2px 2px 0px #3D86B8;
       cursor: pointer;
       margin-bottom: 35px;
@@ -715,8 +821,16 @@ ul, p, h1, h2, h3, h4 {
       }
 
       &:active {
-        background-image: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
+        background: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
         line-height: 40px;
+      }
+    }
+
+    .service__see_more_btn {
+      &:hover {
+        border: none;
+        line-height: 38px;
+        background: #3D7CB5;
       }
     }
 
@@ -788,6 +902,32 @@ ul, p, h1, h2, h3, h4 {
     }
   }
 
+.ie8 .about__advantage {
+  &:first-child {
+    .at2x("advantages/1.png", 121px, 130px, 93px);
+  }
+
+  &:first-child + * {
+    .at2x("advantages/2.png", 121px, 130px, 93px);
+  }
+
+  &:first-child + * + * {
+    .at2x("advantages/3.png", 121px, 130px, 93px);
+  }
+
+  &:first-child + * + * + * {
+    .at2x("advantages/4.png", 121px, 130px, 93px);
+  }
+
+  &:first-child + * + * + * + * {
+    .at2x("advantages/5.png", 121px, 130px, 93px);
+  }
+
+  &:first-child + * + * + * + * + * {
+    .at2x("advantages/6.png", 121px, 130px, 93px);
+  }
+}
+
 
 .contacts {
   position: relative;
@@ -813,6 +953,10 @@ ul, p, h1, h2, h3, h4 {
       line-height: 23px;
       margin: 0 0 21px;
     }
+
+  .ie8 .contacts__sticker {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4vwkAArMBsonMJUgAAAAASUVORK5CYII=);
+  }
 
 
 .order-popup {
@@ -920,7 +1064,8 @@ ul, p, h1, h2, h3, h4 {
           &.active {
             cursor: default;
             color: #fff;
-            background-image: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
+            background: #68A8DA;
+            background: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
             box-shadow: inset 0px -5px 5px 0px #3E90C8;
           }
         }
@@ -1028,7 +1173,8 @@ ul, p, h1, h2, h3, h4 {
             font-weight: bold;
             text-shadow: 0px 1px 2px rgba(0,0,0,0.50);
             border-radius: 6px;
-            background-image: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
+            background: #68A8DA;
+            background: linear-gradient(-180deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 97%);
             box-shadow: inset 0px -2px 2px 0px #3D86B8;
             cursor: pointer;
             margin-bottom: 10px;
@@ -1042,7 +1188,7 @@ ul, p, h1, h2, h3, h4 {
             }
 
             &:active {
-              background-image: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
+              background: linear-gradient(0deg, #83C4EE 0%, #68A8DA 50%, #3D7CB5 100%);
               line-height: 52px;
             }
           }
@@ -1281,9 +1427,11 @@ ul, p, h1, h2, h3, h4 {
   width: 300px;
   height: 203px;
   border-radius: 0 0 0 6px;
-  background-image: linear-gradient(-180deg, #6ACEFF 0%, #2E9ED4 100%);
+  background: #2E9ED4;
+  background: linear-gradient(-180deg, #6ACEFF 0%, #2E9ED4 100%);
   padding: 20px 40px 20px 20px;
   transform: translate3d(300px, 0, 0);
+  z-index: 100;
 
   &.active {
     animation: converterBounceInRight 500ms both;
@@ -1294,11 +1442,16 @@ ul, p, h1, h2, h3, h4 {
   }
 }
 
+.no-cssanimations .converter {
+  right: -300px;
+}
+
   .converter__docket {
     content: '';
     width: 40px;
     height: 40px;
-    background-image: linear-gradient(-180deg, #6ACEFF 0%, #5ac1f4 100%);
+    background: #2E9ED4;
+    background: linear-gradient(-180deg, #6ACEFF 0%, #5ac1f4 100%);
     position: absolute;
     left: -40px;
     top: 0;

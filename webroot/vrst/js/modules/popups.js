@@ -24,14 +24,14 @@ var AL_Popups = function(me, $) {
         orderPhoneIsValid = false,
 
         bind = function() {
-            $(document).on('tap', '.' + classMap.overlay, hide);
-            $(document).on('tap', '.' + classMap.root, eventHandlers.onInnerTap);
-            $(document).on('tap', '.' + classMap.closeBtn, hide);
-            $(document).on('tap', '.' + classMap.materialTypeChooserItem, eventHandlers.onMaterialChooserItemTap);
+            $(document).on('click', '.' + classMap.overlay, hide);
+            $(document).on('click', '.' + classMap.root, eventHandlers.onInnerClick);
+            $(document).on('click', '.' + classMap.closeBtn, hide);
+            $(document).on('click', '.' + classMap.materialTypeChooserItem, eventHandlers.onMaterialChooserItemClick);
             $(document).on('keypress', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyPress);
             $(document).on('keyup', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyup);
             $(document).on('keyup', '.' + classMap.orderFormField, eventHandlers.onOrderFormFieldKeyup);
-            $(document).on('tap', '.' + classMap.orderBtn, eventHandlers.onOrderBtnTap);
+            $(document).on('click', '.' + classMap.orderBtn, eventHandlers.onOrderBtnClick);
         },
 
         create = function(type, data) {
@@ -183,6 +183,8 @@ var AL_Popups = function(me, $) {
 
             createCache();
 
+            $('input, textarea').placeholder();
+
             cache.orderFormPhoneInput.mask("+7 (999)999-99-99", {
                 completed: function() {
                     orderPhoneIsValid = true;
@@ -195,7 +197,7 @@ var AL_Popups = function(me, $) {
                     value: 0
                 });
 
-                cache.materialTypeChooserItems.first().trigger('tap');
+                cache.materialTypeChooserItems.first().trigger('click');
                 cache.materialWeightInput.trigger('keyup');
             }
 
@@ -301,13 +303,13 @@ var AL_Popups = function(me, $) {
         },
 
         eventHandlers = {
-            onInnerTap: function(event) {
+            onInnerClick: function(event) {
                 if (!$(event.target).closest('.' + classMap.inner).length) {
                     hide();
                 }
             },
 
-            onMaterialChooserItemTap: function(event) {
+            onMaterialChooserItemClick: function(event) {
                 var item = $(this),
                     itemTypePrice = parseInt(item.children('.' + classMap.materialTypeChooserItem + '_material_price').text(), 10),
                     itemType = item.children('.' + classMap.materialTypeChooserItem + '_material_type').text();
@@ -349,7 +351,7 @@ var AL_Popups = function(me, $) {
                 }
 
                 if (+cache.materialWeightInput.val() >= +cache.materialWeightInput.attr('value')) {
-                    cache.materialTypeChooserItems.filter('.active').trigger('tap');
+                    cache.materialTypeChooserItems.filter('.active').trigger('click');
 
                     if (cache.materialWeightInputContainer.hasClass('not_valid')) {
                         cache.materialWeightInputContainer.removeClass('not_valid');
@@ -362,7 +364,7 @@ var AL_Popups = function(me, $) {
                 }
             },
 
-            onOrderBtnTap: function(event) {
+            onOrderBtnClick: function(event) {
                 if (!cache.orderForm.is(':visible')) {
                     if (popupType === 'technic') {
                         popup.addClass('with_order_form');

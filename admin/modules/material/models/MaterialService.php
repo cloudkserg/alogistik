@@ -45,7 +45,8 @@ class MaterialService extends CmsModel
     public function rules()
     {
         return array(
-            array('title', 'required'),
+            array('title,', 'required'),
+            array('text, material_id, begin_price', 'required', 'except' => 'insert'),
             array('title', 'VText'),
             array('text', 'VText', 'max' => VText::MAX),
 
@@ -126,8 +127,6 @@ class MaterialService extends CmsModel
             ),
         );
     }
-
-
 
 
 

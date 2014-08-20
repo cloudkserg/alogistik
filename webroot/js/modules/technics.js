@@ -5,7 +5,7 @@ var AL_Technics = function(me, $) {
         },
 
         bind = function() {
-            cache.technicImg.on('tap', showPopup);
+            cache.technicImg.on('click', showPopup);
         },
 
         showPopup = function(event) {

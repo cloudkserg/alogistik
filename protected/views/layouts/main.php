@@ -45,8 +45,6 @@
         
         <?=$content?>
 
-        <div class="overlay"></div>
-
     </section><!-- /end .layout -->
 
     <?php $this->renderPartial('protected.views.layouts.elements._footer'); ?>
@@ -55,8 +53,11 @@
 
     <?php $this->widget('Converter'); ?>
 
-    <script src="js/main.min.js"></script>
-    <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+	<!--[if lt IE 9]>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script>
+    <![endif]-->
+
+    <script src="/js/main.min.js"></script>
 	
 </body>
 

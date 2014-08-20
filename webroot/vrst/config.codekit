@@ -680,6 +680,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/vendors\/fastclick.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/vendors\/fastclick.js",
+		"outputAbbreviatedPath": "\/js\/vendors\/min\/fastclick-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/vendors\/jquery-1.11.1.min.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -741,17 +752,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/vendors\/selectize.min.js",
 		"outputAbbreviatedPath": "\/js\/vendors\/min\/selectize.min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 0
-		},
-	"\/js\/vendors\/tap.min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/vendors\/tap.min.js",
-		"outputAbbreviatedPath": "\/js\/vendors\/min\/tap.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -947,7 +947,7 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/js\/vendors\/tap.min.js",
+			"linkedFileAbbreviatedPath": "\/js\/vendors\/fastclick.js",
 			"position": 1,
 			"type": 0
 			},
@@ -977,13 +977,13 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/js\/vendors\/selectize.min.js",
+			"linkedFileAbbreviatedPath": "\/js\/modules\/materials.js",
 			"position": 6,
 			"type": 0
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/js\/modules\/materials.js",
+			"linkedFileAbbreviatedPath": "\/js\/vendors\/selectize.min.js",
 			"position": 7,
 			"type": 0
 			},

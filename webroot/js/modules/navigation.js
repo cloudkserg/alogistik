@@ -12,10 +12,10 @@ var AL_Navigation = (function(me, $) {
         },
 
         bind = function() {
-            cache.logo.on('tap', eventHandlers.onLogoTap);
-            cache.toTopBtn.on('tap', scrollToTop);
-            cache.mainNavItems.on('tap', eventHandlers.onMainNavItemTap);
-            cache.toFullCompanyInfoLink.on('tap', eventHandlers.onToFullCompanyInfoLinkTap);
+            cache.logo.on('click', eventHandlers.onLogoClick);
+            cache.toTopBtn.on('click', scrollToTop);
+            cache.mainNavItems.on('click', eventHandlers.onMainNavItemClick);
+            cache.toFullCompanyInfoLink.on('click', eventHandlers.onToFullCompanyInfoLinkClick);
 
 
             $(window).on('scroll', changeToTopBtnState);
@@ -23,20 +23,20 @@ var AL_Navigation = (function(me, $) {
         },
 
         eventHandlers = {
-            onLogoTap: function() {
-                if ($('body').hasClass(header.minimizedHeaderModifier)) {
+            onLogoClick: function() {
+                if ($('body').hasClass(AL_Header.minimizedHeaderModifier)) {
                     scrollToTop();
                 }
             },
 
-            onMainNavItemTap: function() {
+            onMainNavItemClick: function() {
                 var navId = $(this).data('nav-id');
 
                 scrollTo(cache.scrollspysEls.filter('[data-nav-id="' + navId + '"]').position().top - cache.header.height());
             },
 
-            onToFullCompanyInfoLinkTap: function() {
-                cache.mainNavItems.filter('[data-nav-id="contacts"]').trigger('tap');
+            onToFullCompanyInfoLinkClick: function() {
+                cache.mainNavItems.filter('[data-nav-id="contacts"]').trigger('click');
 
                 return false;
             }
@@ -45,10 +45,10 @@ var AL_Navigation = (function(me, $) {
         changeToTopBtnState = function() {
             if (Modernizr.cssanimations) {
                 if ($(window).scrollTop() > toTopBtnVisibilityBound) {
-                    cache.toTopBtn.removeClass('hide').addClass('show');
+                    cache.toTopBtn.removeClass('hidden').addClass('visible');
                 }
                 else {
-                    cache.toTopBtn.removeClass('show').addClass('hide');
+                    cache.toTopBtn.removeClass('visible').addClass('hidden');
                 }
             }
             else {

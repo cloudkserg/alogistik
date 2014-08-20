@@ -16,7 +16,7 @@ var AL_Materials = function(me, $) {
 
         bind = function() {
             cache.materialImg.on('mouseenter', crossfadeBackgrounds);
-            cache.materialImg.on('tap', showPopup);
+            cache.materialImg.on('click', showPopup);
         },
 
         preloadBackgrounds = function() {

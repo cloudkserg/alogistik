@@ -17,10 +17,10 @@ var AL_Converter = function(me, $) {
         units = cache.inputContainer.data('units'),
 
         bind = function() {
-            cache.docket.on('tap', eventHandlers.onDocketTap);
+            cache.docket.on('click', eventHandlers.onDocketClick);
             cache.input.on('keypress', eventHandlers.onInputKeyPress);
             cache.input.on('keyup', eventHandlers.onInputKeyup);
-            cache.swapBtn.on('tap', eventHandlers.onSwapBtnTap)
+            cache.swapBtn.on('click', eventHandlers.onSwapBtnClick)
         },
 
         convert = function(value, units) {
@@ -42,13 +42,18 @@ var AL_Converter = function(me, $) {
         },
 
         eventHandlers = {
-            onDocketTap: function() {
+            onDocketClick: function() {
                 if (cache.converter.hasClass('active')) {
                     if (Modernizr.cssanimations) {
                         cache.converter.removeClass('active').addClass('not_active');
                     }
                     else {
                         //cache.converter.animate()
+                        cache.converter.animate({
+                            right: '-' + cache.converter.outerWidth(true)
+                        }, 500, function() {
+                            cache.converter.removeClass('active');
+                        });
                     }
 
                 }
@@ -57,7 +62,12 @@ var AL_Converter = function(me, $) {
                         cache.converter.addClass('active').removeClass('not_active');
                     }
                     else {
-                        //
+                        //cache.converter.animate()
+                        cache.converter.animate({
+                            right: '-20px'
+                        }, 500, function() {
+                            cache.converter.addClass('active');
+                        });
                     }
                 }
             },
@@ -70,7 +80,7 @@ var AL_Converter = function(me, $) {
                 setResult();
             },
 
-            onSwapBtnTap: function() {
+            onSwapBtnClick: function() {
                 var nextUnits = $(this).attr('data-units'),
                     prevUnitsDesc = cache.currentUnits.text(),
                     nextUnitsDesc = cache.resultUnits.text();
