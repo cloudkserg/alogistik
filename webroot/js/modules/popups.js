@@ -11,7 +11,7 @@ var AL_Popups = function(me, $) {
             inner: 'order-popup__inner',
             closeBtn: 'order-popup__close_btn',
             overlay: 'overlay',
-            materialTypeChooserItem: 'material_type_chooser__item',
+            materialFractionChooserItem: 'material_fraction_chooser__item',
             materialTotalCost: 'order-cost-calc__total_cost_price',
             materialWeightInput: 'order-cost-calc__material_weight',
             orderForm: 'order-popup__order_form',
@@ -27,7 +27,7 @@ var AL_Popups = function(me, $) {
             $(document).on('click', '.' + classMap.overlay, hide);
             $(document).on('click', '.' + classMap.root, eventHandlers.onInnerClick);
             $(document).on('click', '.' + classMap.closeBtn, hide);
-            $(document).on('click', '.' + classMap.materialTypeChooserItem, eventHandlers.onMaterialChooserItemClick);
+            $(document).on('click', '.' + classMap.materialFractionChooserItem, eventHandlers.onMaterialChooserItemClick);
             $(document).on('keypress', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyPress);
             $(document).on('keyup', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyup);
             $(document).on('keyup', '.' + classMap.orderFormField, eventHandlers.onOrderFormFieldKeyup);
@@ -72,19 +72,19 @@ var AL_Popups = function(me, $) {
             if (type === 'material') {
                 $('<p class="' + specificClass + '__desc">'+ data.desc +'</p>').appendTo(popupContent);
 
-                var materialTypeChooser = $('<ul/>', {
-                    class: 'material_type_chooser'
+                var materialFractionChooser = $('<ul/>', {
+                    class: 'material_fraction_chooser'
                 });
 
-                $.each(data.types, function(index, item) {
+                $.each(data.fractions, function(index, item) {
                     $('<li/>', {
-                        class: classMap.materialTypeChooserItem,
-                        html: '<p class="' + classMap.materialTypeChooserItem + '_material_type">' + item.type + '</p>' +
-                              '<p class="' + classMap.materialTypeChooserItem + '_material_price">' + item.price + '<span class="ruble">p</span></p>'
-                    }).appendTo(materialTypeChooser);
+                        class: classMap.materialFractionChooserItem,
+                        html: '<p class="' + classMap.materialFractionChooserItem + '_material_fraction">' + item.fraction + '</p>' +
+                              '<p class="' + classMap.materialFractionChooserItem + '_material_price">' + item.price + '<span class="ruble">p</span></p>'
+                    }).appendTo(materialFractionChooser);
                 });
 
-                materialTypeChooser.appendTo(popupContent);
+                materialFractionChooser.appendTo(popupContent);
 
                 $('<div class="order-cost-calc">' +
                     '<div class="order-cost-calc__material_weight_input_container">' +
@@ -142,7 +142,7 @@ var AL_Popups = function(me, $) {
 
                         $('<li/>', {
                             class: 'technic-params__param' + icoClass,
-                            html: '<p class="technic-params__param_name">' + param.name + '</p>' +
+                            html: '<p class="technic-params__param_name">' + param.name + ':</p>' +
                                   '<p class="technic-params__param_value">' + param.value + '</p>'
                         }).appendTo(list);
                     });
@@ -197,7 +197,7 @@ var AL_Popups = function(me, $) {
                     value: 0
                 });
 
-                cache.materialTypeChooserItems.first().trigger('click');
+                cache.materialFractionChooserItems.first().trigger('click');
                 cache.materialWeightInput.trigger('keyup');
             }
 
@@ -207,7 +207,7 @@ var AL_Popups = function(me, $) {
         createCache = function() {
             if (popupType === 'material') {
                 cache.materialTotalCost = $('.' + classMap.materialTotalCost).children('.odometer');
-                cache.materialTypeChooserItems = $('.' + classMap.materialTypeChooserItem);
+                cache.materialFractionChooserItems = $('.' + classMap.materialFractionChooserItem);
                 cache.materialWeightInput = $('.' + classMap.materialWeightInput);
                 cache.materialWeightInputContainer = cache.materialWeightInput.parent();
 
@@ -311,8 +311,8 @@ var AL_Popups = function(me, $) {
 
             onMaterialChooserItemClick: function(event) {
                 var item = $(this),
-                    itemTypePrice = parseInt(item.children('.' + classMap.materialTypeChooserItem + '_material_price').text(), 10),
-                    itemType = item.children('.' + classMap.materialTypeChooserItem + '_material_type').text();
+                    itemTypePrice = parseInt(item.children('.' + classMap.materialFractionChooserItem + '_material_price').text(), 10),
+                    itemType = item.children('.' + classMap.materialFractionChooserItem + '_material_fraction').text();
 
                 if (!cache.materialWeightInput.val().length) {
                     return false;
@@ -351,7 +351,7 @@ var AL_Popups = function(me, $) {
                 }
 
                 if (+cache.materialWeightInput.val() >= +cache.materialWeightInput.attr('value')) {
-                    cache.materialTypeChooserItems.filter('.active').trigger('click');
+                    cache.materialFractionChooserItems.filter('.active').trigger('click');
 
                     if (cache.materialWeightInputContainer.hasClass('not_valid')) {
                         cache.materialWeightInputContainer.removeClass('not_valid');

@@ -32,7 +32,7 @@ var AL_Navigation = (function(me, $) {
             onMainNavItemClick: function() {
                 var navId = $(this).data('nav-id');
 
-                scrollTo(cache.scrollspysEls.filter('[data-nav-id="' + navId + '"]').position().top - cache.header.height());
+                scrollTo(cache.scrollspysEls.filter('[data-nav-id="' + navId + '"]').position().top);
             },
 
             onToFullCompanyInfoLinkClick: function() {
@@ -67,7 +67,7 @@ var AL_Navigation = (function(me, $) {
                 },
                 {
                     offset: function() {
-                        return cache.header.height() + 10;
+                        return cache.header.height() + 5;
                     }
                 });
         },

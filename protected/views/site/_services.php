@@ -1,6 +1,4 @@
-<div class="main-content__inner js-scrollspy" data-nav-id="services">
-
-<?php foreach ($services as $service) : ?>
+<?php foreach (array_reverse($services) as $service) : ?>
     <div class="service">
         <div class="service__inner">
             <div class="service__content">
@@ -22,5 +20,3 @@
         </div><!-- /end .service__inner -->
     </div><!-- /end .service -->
 <?php endforeach; ?>
-
-</div><!-- /end .main-content__inner -->

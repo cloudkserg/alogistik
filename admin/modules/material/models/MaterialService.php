@@ -105,23 +105,24 @@ class MaterialService extends CmsModel
                 'bg' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
-                        'width' => '500',
-                        'height' => '300',
+                        'width' => '320',
+                        'height' => '180',
                     ),
                     'crop' => array(
-                        'width' => '500',
-                        'height' => '300',
+                        'width' => '320',
+                        'height' => '180',
                     ),
+			'blur' => array()
                 ),
                 'alt' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
-                        'width' => '165',
-                        'height' => '125',
+                        'width' => '460',
+                        'height' => '346',
                     ),
                     'crop' => array(
-                        'width' => '165',
-                        'height' => '125',
+                        'width' => '460',
+                        'height' => '346',
                     ),
                 ),
             ),

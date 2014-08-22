@@ -1,1 +1,0 @@
-var AL_Technics=function(c,$){var n={technicImg:$(".rent-spec-technic__img_container")},t=function(){n.technicImg.on("tap",e)},e=function(c){var n=$(c.target),t=n.parents(".rent-spec-technic"),e=t.data("popup-data")||{};e&&(e.imgSrc=t.find(".rent-spec-technic__img").attr("src"),AL_Popups.show("technic",e))};return{init:function(){t()}}}(AL_Technics||{},jQuery);

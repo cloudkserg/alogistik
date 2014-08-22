@@ -117,12 +117,12 @@ class CarService extends CmsModel
                 'alt' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
-                        'width' => '165',
-                        'height' => '125',
+                        'width' => '600',
+                        'height' => '376',
                     ),
                     'crop' => array(
-                        'width' => '165',
-                        'height' => '125',
+                        'width' => '600',
+                        'height' => '376',
                     ),
                 ),
             ),

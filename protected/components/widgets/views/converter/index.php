@@ -1,6 +1,6 @@
 <div class="converter">
     <select class="converter__material_chooser">
-        <?php foreach ($materials as $material) : ?>
+        <?php foreach (array_reverse($materials) as $material) : ?>
             <option data-data='{"text": "<?=$material->title?>", "destiny": "<?=$material->density?>"}' value="<?=$material->id?>"></option>
         <?php endforeach; ?>
     </select>

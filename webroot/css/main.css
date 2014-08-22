@@ -1024,6 +1024,7 @@ h4 {
   width: 190px;
   font-size: 12px;
   line-height: 17px;
+  margin: 0 0 20px;
 }
 .service__content_inner {
   overflow: hidden;
@@ -1291,6 +1292,8 @@ h4 {
 }
 .service__see_more_btn_container {
   text-align: center;
+  -webkit-transition: opacity 300ms;
+          transition: opacity 300ms;
 }
 .service__see_more_btn {
   display: -moz-inline-stack;
@@ -1629,11 +1632,11 @@ h4 {
   font-size: 16px;
   line-height: 22px;
 }
-.material_type_chooser {
+.material_fraction_chooser {
   text-align: left;
   margin: 40px 0 30px;
 }
-.material_type_chooser__item {
+.material_fraction_chooser__item {
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: top;
@@ -1646,14 +1649,14 @@ h4 {
   border-bottom: 1px solid #1c91cb;
   cursor: pointer;
 }
-.material_type_chooser__item:first-child {
+.material_fraction_chooser__item:first-child {
   border-left: 1px solid #1c91cb;
   border-radius: 8px 0 0 8px;
 }
-.material_type_chooser__item:last-child {
+.material_fraction_chooser__item:last-child {
   border-radius: 0 8px 8px 0;
 }
-.material_type_chooser__item.active {
+.material_fraction_chooser__item.active {
   cursor: default;
   color: #fff;
   background: #68A8DA;
@@ -1662,12 +1665,12 @@ h4 {
   -webkit-box-shadow: inset 0px -5px 5px 0px #3e90c8;
           box-shadow: inset 0px -5px 5px 0px #3e90c8;
 }
-.material_type_chooser__item_material_type,
-.material_type_chooser__item_material_price {
+.material_fraction_chooser__item_material_fraction,
+.material_fraction_chooser__item_material_price {
   font-size: 14px;
   line-height: 19px;
 }
-.material_type_chooser__item_material_price {
+.material_fraction_chooser__item_material_price {
   font-weight: bold;
 }
 .order-cost-calc {
@@ -1871,7 +1874,7 @@ h4 {
 .order-technic-popup__img_container {
   position: relative;
   width: 300px;
-  height: 160px;
+  height: 188px;
   border-radius: 8px;
   overflow: hidden;
   margin: 0 0 20px;

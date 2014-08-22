@@ -14,9 +14,9 @@
                 <div class="rent-spec-technic" data-popup-data='{
                     "params": [
                         [
-                            {"name": "Длина:", "value": "<?=$service->length?>", "ico": "length"}, 
-                            {"name": "Ширина:", "value": "<?=$service->width?>", "ico": "width"}, 
-                            {"name": "Высота:", "value": "<?=$service->height?>", "ico": "height"}
+                            {"name": "Длина", "value": "<?=$service->length?>", "ico": "length"}, 
+                            {"name": "Ширина", "value": "<?=$service->width?>", "ico": "width"}, 
+                            {"name": "Высота", "value": "<?=$service->height?>", "ico": "height"}
                         ], [
                         <?php $arrHelper = new ArrayHelper($service->params); foreach ($service->params as $key => $param) : ?>
                             {"name": "<?=$param->title?>", "value": "<?=$param->value?>"}

@@ -15,4 +15,6 @@ $(document).ready(function() {
     AL_Technics.init();
 
     AL_Converter.init();
+
+    AL_Services.init();
 });

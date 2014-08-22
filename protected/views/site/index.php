@@ -2,9 +2,13 @@
 
     <?php $this->renderPartial('_materialServices', array('services' => $materialServices, 'page' => $materialPage))?>  
     
-    <?php $this->renderPartial('_carServices', array('services' => $carServices, 'page' => $carPage))?>
+    <div class="main-content__inner js-scrollspy" data-nav-id="services">
     
-    <?php $this->renderPartial('_services', array('services' => $services))?>
+	    <?php $this->renderPartial('_carServices', array('services' => $carServices, 'page' => $carPage))?>
+	    
+	    <?php $this->renderPartial('_services', array('services' => $services))?>
+    
+    </div><!-- /end .main-content__inner -->
 
 
     <div class="about js-scrollspy" data-nav-id="about">
