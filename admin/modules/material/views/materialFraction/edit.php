@@ -28,6 +28,19 @@
     ?>
 </form>
 
+<h3>Загрузить изображения</h3>
+<?php $this->widget('ImageUploader', array(
+            'field' =>  'image',
+            'item'  =>  $item,
+        )
+    );
+?>
+<?php $this->widget('ImageList', array(
+        'field'    =>  'image',
+        'images'   =>  $item->images,
+    )
+);
+?>
 <!-- legend -->
 <?php echo $this->renderPartial('admin.views.layouts._legend'); ?>
 </section>

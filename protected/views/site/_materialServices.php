@@ -1,26 +1,3 @@
-<?php 
-function generatePopupData($service) {
-	$jsonData = '{';
-	
-	$jsonData .= '"desc":"'.$service->text.'",';
-	$jsonData .= '"fractions":[';
-	
-	$arrHelper = new ArrayHelper($service->fractions);
-	
-	foreach ($service->fractions as $key => $fraction) {
-		$jsonData .= '{"fraction":"'.$fraction->title.'", "price":"'.$fraction->price.'"}';
-		
-		if (!$arrHelper->isLastKey($key)) {
-			$jsonData .= ',';
-		}
-		
-	}
-	
-	$jsonData .= ']}';
-	
-	return trim(preg_replace('/\s\s+/', ' ', $jsonData));
-}
-?>
 
 <div class="service sale-materials js-scrollspy" data-nav-id="goods">
     <img class="sale-materials__background_crossfade_helper" src=""/>
@@ -41,7 +18,7 @@ function generatePopupData($service) {
             <div class="service__content_inner">
             <?php foreach ($services as $service) : ?>
                 <div class="sale-material" data-bg="<?=PImageHelper::firstImage($service, 'bg')?>" 
-                    data-popup-data='<?=generatePopupData($service)?>'>
+                    data-popup-data='<?=ServiceHelper::generatePopupData($service)?>'>
 
                         <div class="sale-material__img_container">
                             <img class="sale-material__img" src="<?=PImageHelper::firstImage($service, 'alt')?>" alt="altText"/>

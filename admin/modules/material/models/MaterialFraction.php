@@ -20,6 +20,23 @@ class MaterialFraction extends CmsModel
     }
 
     /**
+     * behaviors
+     *
+     * @return void
+     */
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(),
+            array(
+                'imageBeh' => array(
+                    'class' => 'ImageBehavior',
+                ),
+            )
+        );
+    }
+
+    /**
      * applySearch
      *
      * @param mixed $filter
@@ -62,7 +79,10 @@ class MaterialFraction extends CmsModel
     public function relations()
     {
         return array(
-            'materialService' => array(self::BELONGS_TO, 'MaterialService', 'material_service_id')
+            'materialService' => array(self::BELONGS_TO, 'MaterialService', 'material_service_id'),
+
+            'images' => ImageRelationDescription::create($this->abbrModel),
+            'pubImages' => ImageRelationDescription::createPublished($this->abbrModel)
         );
     }
 
@@ -107,5 +127,33 @@ class MaterialFraction extends CmsModel
         return $this;
     }
 
+    /**
+     * Функция для получения опций картинок
+     *
+     * Формат:
+     * @return array  (
+     * model_field - поле которое идентифицируют данные картинки
+     * model_field =>  array(options)
+     * )
+     *
+     */
+    public function getImageOptions()
+    {
+        return array(
+            'thumbs' => array(
+                'alt' => array(
+                    'mode' => 'adaptive_crop',
+                    'resize' => array(
+                        'width' => '460',
+                        'height' => '346',
+                    ),
+                    'crop' => array(
+                        'width' => '460',
+                        'height' => '346',
+                    ),
+                ),
+            ),
+        );
+    }
 
 }
