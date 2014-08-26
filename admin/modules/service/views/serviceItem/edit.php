@@ -19,7 +19,7 @@
         )
     );
     ?>
-    <?php $this->widget('RelationField', array(
+    <?php $this->widget('RelationsField', array(
             'model'   => $item,
             'field'   => 'cars',
             'label'   => 'Машины'

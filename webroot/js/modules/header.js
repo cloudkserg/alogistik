@@ -1,38 +1,70 @@
 var AL_Header = (function(me, $) {
 
-    var minimizedHeaderModifier = 'headerMinimized',
+    var minimizedModifier = 'headerMinimized',
+        height = 144,
+        minimizedHeight = 50,
         minDocumentWidth = 1000,
         maxMinimizedHeaderWidth = 1200,
         body = $('body'),
+        header = $('.header'),
+        isMinimized = false,
 
         bind = function() {
-            $(window).on('scroll', changeState);
-            $(window).on('resize', changeState);
+            $(window).on('scroll', createThrottled(changeState, 100));
+            $(window).on('resize', createThrottled(changeState, 250));
         },
 
-        headerMustBeMinimized = function() {
+        createThrottled = function(fn, interval, scope) {
+            var lastCallTime,
+                elapsed,
+                lastArgs,
+                timer,
+                execute = function() {
+                    fn.apply(scope || this, lastArgs);
+                    lastCallTime = new Date().getTime();
+                };
+
+            return function() {
+                elapsed = new Date().getTime() - lastCallTime;
+                lastArgs = arguments;
+
+                clearTimeout(timer);
+                if (!lastCallTime || (elapsed >= interval)) {
+                    execute();
+                } else {
+                    timer = setTimeout(execute, interval - elapsed);
+                }
+            };
+        },
+
+        headerShouldBeMinimized = function() {
             var viewportWidth = $(window).width();
 
-            return (viewportWidth <= minDocumentWidth) ||
-                (viewportWidth > minDocumentWidth && viewportWidth <= maxMinimizedHeaderWidth);
+            return (Detectizr.device.type !== 'mobile') && ((viewportWidth <= minDocumentWidth) ||
+                (viewportWidth > minDocumentWidth && viewportWidth <= maxMinimizedHeaderWidth));
         },
 
         changeState = function(event) {
-            var winScrollTop = $(window).scrollTop();
+            var winScrollTop = $(window).scrollTop(),
+                headerShouldBeMinimizedCached = headerShouldBeMinimized();
 
             if (!event) {
-                body[headerMustBeMinimized() ? 'addClass' : 'removeClass'](minimizedHeaderModifier);
+                body[headerShouldBeMinimizedCached ? 'addClass' : 'removeClass'](minimizedModifier);
+                isMinimized = headerShouldBeMinimizedCached;
             }
             else {
                 if (event.type === 'scroll') {
-                    body[(headerMustBeMinimized() || winScrollTop > 0) ? 'addClass' : 'removeClass'](minimizedHeaderModifier);
+                    body[(headerShouldBeMinimizedCached || winScrollTop > 0) ? 'addClass' : 'removeClass'](minimizedModifier);
+
+                    isMinimized = (headerShouldBeMinimizedCached || winScrollTop > 0);
                 }
                 else if (event.type === 'resize') {
                     if (winScrollTop > 0) {
                         return;
                     }
 
-                    body[headerMustBeMinimized() ? 'addClass' : 'removeClass'](minimizedHeaderModifier);
+                    body[headerShouldBeMinimizedCached ? 'addClass' : 'removeClass'](minimizedModifier);
+                    isMinimized = headerShouldBeMinimizedCached;
                 }
             }
         };
@@ -43,6 +75,14 @@ var AL_Header = (function(me, $) {
             bind();
         },
 
-        minimizedHeaderModifier: minimizedHeaderModifier
+        minimizedModifier: minimizedModifier,
+
+        minimizedHeight: minimizedHeight,
+
+        height: height,
+
+        isMinimized: function() {
+            return isMinimized;
+        }
     }
 }(AL_Header || {}, jQuery));

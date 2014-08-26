@@ -43,7 +43,7 @@
     ?>
     <?php $this->widget('TextField',array(
             'model' => $item,
-            'field' => 'widht',
+            'field' => 'width',
             'label' => 'Ширина'
         )
     );

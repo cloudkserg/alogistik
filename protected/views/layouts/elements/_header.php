@@ -15,7 +15,7 @@
         <div class="online-call-btn">Звонок онлайн</div>
 
         <div class="book-call">
-            <p class="book-call__phone_number">+7&nbsp;3812&nbsp;55-66-77</p>
+            <p class="book-call__phone_number"><a class="book-call__phone_number_mob_helper" href="tel:+7(3812)55-66-77">+7&nbsp;3812&nbsp;55-66-77</a></p>
             <a class="book-call__btn" href="#book-call">Заказать обратный звонок</a>
         </div>
 

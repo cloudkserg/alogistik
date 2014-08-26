@@ -91,6 +91,7 @@ var AL_Materials = function(me, $) {
                 popupData = parent.data('popup-data');
 
             if (popupData) {
+                popupData.materialName = parent.find('.sale-material__name').text();
                 popupData.imgSrc = parent.find('.sale-material__img').attr('src');
 
                 AL_Popups.show("material", popupData);

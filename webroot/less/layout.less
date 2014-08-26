@@ -135,7 +135,7 @@ ul, p, h1, h2, h3, h4 {
   top: 0;
   background: @defBgColor;
   z-index: 10;
-  transition: all 300ms ease-in-out;
+  transition: transform 300ms;
 }
 
   .header__inner {
@@ -178,12 +178,12 @@ ul, p, h1, h2, h3, h4 {
       .replace-text;
       margin-left: 44px;
       margin-top: ((@headerHeight - 67px) / 2);
-      transition: all 300ms;
+      transition: transform 300ms;
     }
 
     .main-nav {
       width: 330px;
-      transition: all 300ms;
+      transition: transform 300ms;
       margin-top: ((@headerHeight - 36px) / 2);
     }
 
@@ -205,7 +205,7 @@ ul, p, h1, h2, h3, h4 {
           line-height: 34px;
           cursor: pointer;
           color: @defLinkColor;
-          transition: all 300ms;
+          transition: color 300ms;
           
           &:hover {
             color: @defTextColor;
@@ -230,7 +230,7 @@ ul, p, h1, h2, h3, h4 {
       text-align: center;
       color: #fff;
       cursor: pointer;
-      transition: box-shadow 300ms, background 300ms, color 300ms;
+      transition: background 300ms, color 300ms, transform 300ms;
       margin-top :((@headerHeight - 34px) / 2);
 
       &:hover {
@@ -254,12 +254,17 @@ ul, p, h1, h2, h3, h4 {
 
     .book-call {
       margin-top: ((@headerHeight - 52px) / 2);
+      transition: transform 300ms;
     }
 
       .book-call__phone_number {
         font-size: 24px;
         line-height: 33px;
-        transition: all 300ms;
+      }
+      
+      .book-call__phone_number_mob_helper {
+        color: @defTextColor;
+        text-decoration: none;
       }
 
       .book-call__btn {
@@ -267,7 +272,7 @@ ul, p, h1, h2, h3, h4 {
         line-height: 19px;
         color: @defLinkColor;
         text-decoration: none;
-        transition: all 300ms;
+        transition: color 300ms;
 
         &:hover {
           color: @defTextColor
@@ -278,12 +283,13 @@ ul, p, h1, h2, h3, h4 {
       width: 150px;
       margin-right: 28px;
       margin-top: ((@headerHeight - 53px) / 2);
+      transition: transform 300ms;
     }
 
       .short-company-info__address {
         font-size: 14px;
         line-height: 19px;
-        transition: all 300ms;
+        transition: color 300ms;
       }
 
       .short-company-info__link_to_full_info {
@@ -302,19 +308,21 @@ ul, p, h1, h2, h3, h4 {
 
 .headerMinimized {
   .header {
-    height: @headerMinimizedHeight;
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1)
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    transform: translate3d(0, -94px, 0);
   }
 
       .logo {
         cursor: pointer;
         .dims(92px, 35px);
         margin-top: ((@headerMinimizedHeight - 35px) / 2);
+        transform: translate3d(0, (((@headerHeight - 35px) / 2) - @headerMinimizedHeight) + 35px + ((@headerMinimizedHeight - 35px) / 2), 0);
       }
 
       .main-nav {
         margin-top: ((@headerMinimizedHeight - 36px) / 2);
+        transform: translate3d(0, (((@headerHeight - 36px) / 2) - @headerMinimizedHeight) + 36px + ((@headerMinimizedHeight - 36px) / 2), 0);
       }
 
         .main-nav__list_item {
@@ -328,6 +336,7 @@ ul, p, h1, h2, h3, h4 {
         .inline-block;
         color:  #5DB30F;
         margin-top: ((@headerMinimizedHeight - 34px) / 2);
+        transform: translate3d(0, (((@headerHeight - 34px) / 2) - @headerMinimizedHeight) + 34px + ((@headerMinimizedHeight - 34px) / 2), 0);
 
         &:hover {
           border: none;
@@ -338,6 +347,7 @@ ul, p, h1, h2, h3, h4 {
 
       .book-call {
         margin-top: ((@headerMinimizedHeight - 36px) / 2);
+        transform: translate3d(0, (((@headerHeight - 36px) / 2) - @headerMinimizedHeight) + 36px + ((@headerMinimizedHeight - 36px) / 2), 0);
       }
 
         .book-call__phone_number {
@@ -352,6 +362,7 @@ ul, p, h1, h2, h3, h4 {
 
       .short-company-info {
         margin-top: ((@headerMinimizedHeight - 19px) / 2);
+        transform: translate3d(0, (((@headerHeight - 19px) / 2) - @headerMinimizedHeight) + 19px + ((@headerMinimizedHeight - 19px) / 2), 0);
       }
 
         .short-company-info__link_to_full_info {
@@ -361,6 +372,19 @@ ul, p, h1, h2, h3, h4 {
           left: -9999px;
           top: -9999px;
         }
+
+        .short-company-info__address {
+          color: @defLinkColor;
+          cursor: pointer;
+
+          &:hover {
+            color: @defTextColor;
+          }
+        }
+}
+
+.mobile .online-call-btn {
+  display: none;
 }
 
 .flexbox .headerMinimized {
@@ -371,14 +395,22 @@ ul, p, h1, h2, h3, h4 {
   }
 }
 
+.no-csstransforms {
+  .headerMinimized {
+    .header {
+      height: @headerMinimizedHeight;
+    }
+  }
+}
+
 .ie8 .headerMinimized {
-  .header {
+  &.header {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4/wkAAvMB8suBnGEAAAAASUVORK5CYII=);
     border-bottom: 1px solid #ccc;
   }
 
   .logo {
-    -ms-behavior: url(/js/vendors/backgroundsize.min.htc);
+    -ms-behavior: url(/js/ie/backgroundsize.min.htc);
   }
   
   .online-call-btn {
@@ -402,14 +434,12 @@ ul, p, h1, h2, h3, h4 {
 
 .main-content {
   position: relative;
-  top: @headerHeight;
-  padding-bottom: @headerHeight;
+  padding-top: @headerHeight;
 }
 
 .csstransforms .main-content {
-  top: auto;
-  transform: translateY(@headerHeight);
-  transition: transform 300ms ease-in-out;
+  padding-top: 0;
+  transform: translate3d(0, @headerHeight, 0);
 }
 
   .main-content__inner {
@@ -418,20 +448,14 @@ ul, p, h1, h2, h3, h4 {
     padding-bottom: 40px;
   }
 
-.headerMinimized {
-  .main-content {
-    top: @headerMinimizedHeight;
-    padding-bottom: @headerMinimizedHeight;
-  }
+.headerMinimized .main-content {
+  padding-top: @headerMinimizedHeight;
 }
 
-.csstransforms .headerMinimized {
-  .main-content {
-    top: auto;
-    transform: translateY(@headerMinimizedHeight);
-  }
+.csstransforms .headerMinimized .main-content {
+  padding-top: 0;
+  transform: translate3d(0, @headerMinimizedHeight, 0);
 }
-
 
 .service {
   position: relative;
@@ -599,7 +623,7 @@ ul, p, h1, h2, h3, h4 {
     }
 
     .ie8 .sale-material__img_container {
-      -ms-behavior: url(/js/vendors/PIE.htc);
+      -ms-behavior: url(/js/ie/PIE.htc);
 
       &:hover {
         .sale-material__see_more {
@@ -703,7 +727,7 @@ ul, p, h1, h2, h3, h4 {
     }
 
     .ie8 .rent-spec-technic__img_container {
-      -ms-behavior: url(/js/vendors/PIE.htc);
+      -ms-behavior: url(/js/ie/PIE.htc);
 
       &:hover {
         .rent-spec-technic__see_more {
@@ -956,6 +980,13 @@ ul, p, h1, h2, h3, h4 {
       margin: 0 0 21px;
     }
 
+    .contacts__item_address {
+      font-size: 16px;
+      line-height: 23px;
+      color: @defLinkColor;
+      cursor: pointer;
+    }
+
   .ie8 .contacts__sticker {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4vwkAArMBsonMJUgAAAAASUVORK5CYII=);
   }
@@ -1017,6 +1048,20 @@ ul, p, h1, h2, h3, h4 {
       overflow: hidden;
       float: left;
       margin-right: 30px;
+
+      &.loaded {
+        &:after {
+          background: transparent;
+        }
+      }
+      
+      &:after {
+        content: '';
+        .square(100%);
+        .posa;
+        background: #ccc;
+        transition: background 300ms;
+      }
     }
 
       .order-material-popup__img {
@@ -1135,6 +1180,7 @@ ul, p, h1, h2, h3, h4 {
             position: absolute;
             right: 8px;
             top: 8px;
+            cursor: pointer;
           }
 
         .order-cost-calc__multiple_sign,
@@ -1294,6 +1340,12 @@ ul, p, h1, h2, h3, h4 {
         border-radius: 8px;
         overflow: hidden;
         margin: 0 0 20px;
+
+        &:after {
+          content: '';
+          .square(100%);
+          .posa;
+        }
       }
 
         .order-technic-popup__img {
@@ -1435,12 +1487,16 @@ ul, p, h1, h2, h3, h4 {
   transform: translate3d(300px, 0, 0);
   z-index: 100;
 
-  &.active {
+  &.showAnimation {
     animation: converterBounceInRight 500ms both;
   }
 
-  &.not_active {
+  &.hideAnimation {
     animation: converterBounceOutRight 500ms both;
+  }
+
+  &.hover {
+    animation: bounceConverter 500ms;
   }
 }
 
@@ -1458,6 +1514,7 @@ ul, p, h1, h2, h3, h4 {
     left: -40px;
     top: 0;
     border-radius: 6px 0 0 6px;
+    cursor: pointer;
 
     &:before {
       content: '';
@@ -1583,6 +1640,7 @@ ul, p, h1, h2, h3, h4 {
       margin-left: auto;
       margin-right: auto;
       margin-top: ((@footerHeight - 36px) / 2);
+      transform: none;
     }
 }
 
@@ -1717,6 +1775,27 @@ ul, p, h1, h2, h3, h4 {
   100% {
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     opacity: 0;
+  }
+}
+
+@keyframes bounceConverter {
+  0%, 20%, 53%, 80%, 100% {
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transform: translate3d(300px, 0, 0);
+  }
+
+  40%, 43% {
+    transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(270px , 0, 0);
+  }
+
+  70% {
+    transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(285px, 0, 0);
+  }
+
+  90% {
+    transform: translate3d(296px, 0, 0);
   }
 }
 

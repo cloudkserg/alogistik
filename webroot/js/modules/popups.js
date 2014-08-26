@@ -4,6 +4,8 @@ var AL_Popups = function(me, $) {
 
         popupType,
 
+        popupData,
+
         overlay,
 
         classMap = {
@@ -13,6 +15,7 @@ var AL_Popups = function(me, $) {
             overlay: 'overlay',
             materialFractionChooserItem: 'material_fraction_chooser__item',
             materialTotalCost: 'order-cost-calc__total_cost_price',
+            materialWeightUnit: 'order-cost-calc__material_weight_unit',
             materialWeightInput: 'order-cost-calc__material_weight',
             orderForm: 'order-popup__order_form',
             orderBtn: 'order-popup__order_btn',
@@ -29,6 +32,7 @@ var AL_Popups = function(me, $) {
             $(document).on('click', '.' + classMap.closeBtn, hide);
             $(document).on('click', '.' + classMap.materialFractionChooserItem, eventHandlers.onMaterialChooserItemClick);
             $(document).on('keypress', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyPress);
+            $(document).on('click', '.' + classMap.materialWeightUnit, eventHandlers.onMaterialWeightUnitClick);
             $(document).on('keyup', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyup);
             $(document).on('keyup', '.' + classMap.orderFormField, eventHandlers.onOrderFormFieldKeyup);
             $(document).on('click', '.' + classMap.orderBtn, eventHandlers.onOrderBtnClick);
@@ -42,6 +46,7 @@ var AL_Popups = function(me, $) {
                 popupContent;
 
             popupType = type;
+            popupData = data;
 
             popup = $('<div/>', {
                 class: classMap.root + ' ' + specificClass
@@ -81,7 +86,7 @@ var AL_Popups = function(me, $) {
                         class: classMap.materialFractionChooserItem,
                         html: '<p class="' + classMap.materialFractionChooserItem + '_material_fraction">' + item.fraction + '</p>' +
                               '<p class="' + classMap.materialFractionChooserItem + '_material_price">' + item.price + '<span class="ruble">p</span></p>'
-                    }).appendTo(materialFractionChooser);
+                    }).attr('data-img', item.img).appendTo(materialFractionChooser);
                 });
 
                 materialFractionChooser.appendTo(popupContent);
@@ -194,7 +199,8 @@ var AL_Popups = function(me, $) {
             if (type === 'material') {
                 new Odometer({
                     el: cache.materialTotalCost[0],
-                    value: 0
+                    value: 0,
+                    format: '( ddd).dd'
                 });
 
                 cache.materialFractionChooserItems.first().trigger('click');
@@ -206,6 +212,8 @@ var AL_Popups = function(me, $) {
 
         createCache = function() {
             if (popupType === 'material') {
+                cache.materialImgHolder = $('.order-' + popupType + '-popup' + '__img');
+                cache.materialImgContainer = cache.materialImgHolder.parent();
                 cache.materialTotalCost = $('.' + classMap.materialTotalCost).children('.odometer');
                 cache.materialFractionChooserItems = $('.' + classMap.materialFractionChooserItem);
                 cache.materialWeightInput = $('.' + classMap.materialWeightInput);
@@ -214,7 +222,7 @@ var AL_Popups = function(me, $) {
                 cache.materialPriceValue = $('.order-cost-calc__material_price_value');
                 cache.materialTypeValue = $('.order-cost-calc__material_type');
 
-                cache.materialWeightUnit = $('.order-cost-calc__material_weight_unit');
+                cache.materialWeightUnit = $('.' + classMap.materialWeightUnit);
                 cache.materialWeightInputDesc = $('.order-cost-calc__material_weight_desc');
             }
 
@@ -231,6 +239,11 @@ var AL_Popups = function(me, $) {
             cache.orderFormPhoneInput = cache.orderFormPhoneInputContainer.children('.order-popup__order_form_field');
             cache.orderFormPhoneInputDescEl = cache.orderFormPhoneInputContainer.children('.order-popup__order_form_field_desc');
             cache.orderFormPhoneInputDesc = cache.orderFormPhoneInputDescEl.html();
+
+            cache.orderFormAddressInputContainer = cache.orderFormFieldContainers.filter('.orderAddress');
+            cache.orderFormAddressInput = cache.orderFormAddressInputContainer.children('.order-popup__order_form_field');
+            cache.orderFormAddressInputDescEl = cache.orderFormAddressInputContainer.children('.order-popup__order_form_field_desc');
+            cache.orderFormAddressInputDesc = cache.orderFormAddressInputDescEl.html();
         },
 
         show = function() {
@@ -249,6 +262,8 @@ var AL_Popups = function(me, $) {
         },
 
         hide = function() {
+            var converter = AL_Converter;
+
             if (Modernizr.cssanimations) {
                 popup.addClass('closeAnimation');
             }
@@ -257,6 +272,11 @@ var AL_Popups = function(me, $) {
             }
 
             setTimeout(function() {
+                if (converter.isOpened()) {
+                    converter.hide();
+                    converter.preventHideOnDocumentClick(false);
+                }
+
                 popup.remove();
 
                 hideOverlay();
@@ -312,7 +332,23 @@ var AL_Popups = function(me, $) {
             onMaterialChooserItemClick: function(event) {
                 var item = $(this),
                     itemTypePrice = parseInt(item.children('.' + classMap.materialFractionChooserItem + '_material_price').text(), 10),
-                    itemType = item.children('.' + classMap.materialFractionChooserItem + '_material_fraction').text();
+                    itemType = item.children('.' + classMap.materialFractionChooserItem + '_material_fraction').text(),
+
+                    loadImg = function(src) {
+                        var imgLoader = new Image();
+
+                        imgLoader.onload = function() {
+                            cache.materialImgHolder.attr('src', item.data('img'));
+                            setTimeout(function() {
+                                cache.materialImgContainer.addClass('loaded');
+                            }, 100);
+                        };
+
+                        cache.materialImgContainer.removeClass('loaded');
+                        setTimeout(function() {
+                            imgLoader.src = src;
+                        }, 200);
+                    };
 
                 if (!cache.materialWeightInput.val().length) {
                     return false;
@@ -322,6 +358,8 @@ var AL_Popups = function(me, $) {
 
                 item.addClass('active');
 
+                loadImg(item.data('img'));
+
                 cache.materialPriceValue.text(itemTypePrice);
                 cache.materialTypeValue.text(itemType);
 
@@ -330,6 +368,16 @@ var AL_Popups = function(me, $) {
 
             onMaterialWeightInputKeyPress: function(event) {
                 return /\d/.test(String.fromCharCode(event.keyCode));
+            },
+
+            onMaterialWeightUnitClick: function() {
+                var converter = AL_Converter;
+
+                converter.preventHideOnDocumentClick(true);
+
+                converter.setMaterialByText(popupData.materialName);
+
+                converter.show();
             },
 
             onMaterialWeightInputKeyup: function(event) {
@@ -393,8 +441,18 @@ var AL_Popups = function(me, $) {
                         cache.orderFormPhoneInputDescEl.html(cache.orderFormPhoneInputDesc);
                     }
 
+                    if (!cache.orderFormAddressInput.val().length) {
+                        cache.orderFormAddressInputContainer.addClass('not_valid');
+                        cache.orderFormAddressInputDescEl.html('Необходимо ввести адрес доставки');
+                    }
+                    else {
+                        cache.orderFormAddressInputContainer.removeClass('not_valid');
+                        cache.orderFormAddressInputDescEl.html(cache.orderFormAddressInputDesc);
+                    }
+
                     if (!(cache.orderFormFLNameInputContainer.hasClass('not_valid') ||
-                          cache.orderFormPhoneInputContainer.hasClass('not_valid'))) {
+                          cache.orderFormPhoneInputContainer.hasClass('not_valid') ||
+                          cache.orderFormAddressInputContainer.hasClass('not_valid'))) {
                         alert('SUBMIT');
                     }
                 }
@@ -411,6 +469,12 @@ var AL_Popups = function(me, $) {
                     if (orderPhoneIsValid && cache.orderFormPhoneInputContainer.hasClass('not_valid')) {
                         cache.orderFormPhoneInputContainer.removeClass('not_valid');
                         cache.orderFormPhoneInputDescEl.html(cache.orderFormPhoneInputDesc);
+                    }
+                }
+                else if ($(this)[0] === cache.orderFormAddressInput[0]) {
+                    if (cache.orderFormAddressInput.val().length && cache.orderFormAddressInputContainer.hasClass('not_valid')) {
+                        cache.orderFormAddressInputContainer.removeClass('not_valid');
+                        cache.orderFormAddressInputDescEl.html(cache.orderFormAddressInputDesc);
                     }
                 }
             }

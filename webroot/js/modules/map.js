@@ -23,12 +23,15 @@ var AL_Map = function(me, $) {
                 ymaps.ready(function () {
                     map = new ymaps.Map('map', {
                         center: [54.9932, 73.2426],
-                        zoom: 16
+                        zoom: 16,
+                        controls: ['zoomControl', 'geolocationControl']
                     });
 
                     addBaloon();
 
                     changeState();
+
+                    $(document).on('click', '.contacts__item_address', setMapInitSettings);
                 });
             });
         },
@@ -51,6 +54,13 @@ var AL_Map = function(me, $) {
 
         changeState = function() {
             map.behaviors[(map && $(window).height() <= 500) ? 'disable' : 'enable'](['multiTouch', 'scrollZoom']);
+        },
+
+        setMapInitSettings = function() {
+            map.panTo([54.9932, 73.2426]).then(function () {
+                map.setZoom(16);
+            }, function (err) {
+            }, this);
         };
 
     return {

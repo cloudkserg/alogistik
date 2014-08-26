@@ -29,15 +29,15 @@
 
         </div><!-- /end .contacts__map -->
         <div class="contacts__sticker">
-            <p class="contacts__item">ООО "АльфаЛогистик",<br/>
-                8&nbsp;800&nbsp;200&nbsp;00&nbsp;00</p>
-            <p class="contacts__item">Юридический адрес:<br/>
-                644073, г. Омск,<br/>
-                ул. Звездная, д. 6, корп. 1, кв. 11
-            <p class="contacts__item">Реквизиты:<br/>
-                ИНН: 5507236034<br/>
-                ОГРН: 1135543000328
-        </div>
+			<p class="contacts__item"><b>ООО «АльфаЛогистик»</b><br/>
+				8&nbsp;800&nbsp;200&nbsp;00&nbsp;00</p>
+			<p class="contacts__item">Юридический адрес:<br/>
+				<span class="contacts__item_address">644073, г. Омск,<br/>
+				ул. Звездная, д. 6, корп. 1, кв. 11</span>
+			<p class="contacts__item">Реквизиты:<br/>
+				ИНН: 5507236034<br/>
+				ОГРН: 1135543000328
+		</div>
     </div><!-- /end .contacts -->
 
 </section><!-- /end .main-content -->

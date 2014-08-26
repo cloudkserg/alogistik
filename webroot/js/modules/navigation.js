@@ -8,7 +8,8 @@ var AL_Navigation = (function(me, $) {
             toTopBtn: $('.to-top-btn'),
             logo: $('.logo'),
             mainNavItems:  $('.main-nav__list_item'),
-            toFullCompanyInfoLink: $('.short-company-info__link_to_full_info')
+            toFullCompanyInfoLink: $('.short-company-info__link_to_full_info'),
+            toMapLink: $('.short-company-info__address')
         },
 
         bind = function() {
@@ -16,6 +17,7 @@ var AL_Navigation = (function(me, $) {
             cache.toTopBtn.on('click', scrollToTop);
             cache.mainNavItems.on('click', eventHandlers.onMainNavItemClick);
             cache.toFullCompanyInfoLink.on('click', eventHandlers.onToFullCompanyInfoLinkClick);
+            cache.toMapLink.on('click', eventHandlers.toMapLinkClick);
 
 
             $(window).on('scroll', changeToTopBtnState);
@@ -24,7 +26,7 @@ var AL_Navigation = (function(me, $) {
 
         eventHandlers = {
             onLogoClick: function() {
-                if ($('body').hasClass(AL_Header.minimizedHeaderModifier)) {
+                if (AL_Header.isMinimized()) {
                     scrollToTop();
                 }
             },
@@ -39,6 +41,12 @@ var AL_Navigation = (function(me, $) {
                 cache.mainNavItems.filter('[data-nav-id="contacts"]').trigger('click');
 
                 return false;
+            },
+
+            toMapLinkClick: function() {
+                if (AL_Header.isMinimized()) {
+                    cache.mainNavItems.filter('[data-nav-id="contacts"]').trigger('click');
+                }
             }
         },
 
@@ -67,7 +75,7 @@ var AL_Navigation = (function(me, $) {
                 },
                 {
                     offset: function() {
-                        return cache.header.height() + 5;
+                        return AL_Header.isMinimized() ? AL_Header.minimizedHeight + 5 : AL_Header.height + 5;
                     }
                 });
         },

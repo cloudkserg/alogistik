@@ -78,7 +78,7 @@ class ServiceItem extends CmsModel
     public function relations()
     {
         return array(
-            'cars' => array(self::MANY_MANY, 'Car', array('service_item_id', 'car_id')),
+            'cars' => array(self::MANY_MANY, 'Car', 'service_item_cars(service_item_id,car_id)'),
             'service' => array(self::BELONGS_TO, 'Service', 'service_id')
         );
     }
