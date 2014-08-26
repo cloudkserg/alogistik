@@ -26,6 +26,13 @@
         )
     );
     ?>
+    <?php $this->widget('CheckboxField',array(
+            'model' => $item,
+            'field' => 'main',
+            'label' => 'Главный'
+        )
+    );
+    ?>
 </form>
 
 <h3>Загрузить изображения</h3>

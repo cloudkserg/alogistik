@@ -67,7 +67,7 @@ class MaterialFraction extends CmsModel
             array('title', 'required'),
             array('title', 'VText'),
 
-            array('price, material_service_id,sort', 'numerical'),
+            array('price, material_service_id,sort, main', 'numerical'),
         );
     }
 
@@ -96,6 +96,7 @@ class MaterialFraction extends CmsModel
         return array_merge(
             parent::attributeLabels(),
             array(
+                'main' => 'Главный',
                 'title'        => 'Название',
                 'material_service_id'         => 'Сервис материала',
                 'price' => 'Цена'
@@ -124,6 +125,17 @@ class MaterialFraction extends CmsModel
      */
     public function published()
     {
+        return $this;
+    }
+
+    /**
+     * main
+     *
+     * @return void
+     */
+    public function main()
+    {
+        $this->getDbCriteria()->compare('main', 1);
         return $this;
     }
 

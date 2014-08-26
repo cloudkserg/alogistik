@@ -18,6 +18,7 @@ $this->widget('ModelTable', array(
     'columns' => array(
         'id' => array('type' => 'id', 'width' => '50px'),
         'title' => array('type' => 'title', 'width' => '150px'),
+        'main' => array('type' => 'checkbox'),
         'materialService' => array('title' => 'Сервис материала', 'value' => function ($row){
             return $row->getRelation('materialService')->title;
         }),
