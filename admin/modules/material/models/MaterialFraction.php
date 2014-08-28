@@ -153,6 +153,18 @@ class MaterialFraction extends CmsModel
     {
         return array(
             'thumbs' => array(
+                'bg' => array(
+                    'mode' => 'adaptive_crop',
+                    'resize' => array(
+                        'width' => '320',
+                        'height' => '180',
+                    ),
+                    'crop' => array(
+                        'width' => '320',
+                        'height' => '180',
+                    ),
+			'blur' => array()
+                ),
                 'alt' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
