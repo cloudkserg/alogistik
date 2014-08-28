@@ -17,7 +17,7 @@
                 <h4 class="about__advantage">У нас работают квалифицинованные специалисты</h4>
                 <h4 class="about__advantage">Скидка на самосвалы<br/>при заказе погрузчика<br/>или экскаватора</h4>
                 <h4 class="about__advantage">Скидки<br/>для постоянных<br/>клиентов</h4>
-                <h4 class="about__advantage">17 лет на рынке<br/>нерудных материалов</h4>
+                <h4 class="about__advantage">14 лет на рынке<br/>нерудных материалов</h4>
                 <h4 class="about__advantage">Работаем<br/>по Омской области</h4>
                 <h4 class="about__advantage">Работаем<br/>24 часа в сутки </h4>
             </div><!-- /end .about__advantages -->
