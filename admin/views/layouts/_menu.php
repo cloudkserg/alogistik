@@ -46,6 +46,7 @@
                 'label' => 'Админка',
                 'links' => array(
                     new ALink(new AUrl('/user'), 'Пользователи'),
+                    new ALink(new AUrl('/mailbox'), 'Почтовые ящики'),
                 )
             )); ?>
         <?php endif; ?>
