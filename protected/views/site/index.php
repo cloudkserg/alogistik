@@ -14,12 +14,12 @@
     <div class="about js-scrollspy" data-nav-id="about">
         <div class="about__inner">
             <div class="about__advantages">
-                <h4 class="about__advantage">У нас работают квалифицинованные специалисты</h4>
-                <h4 class="about__advantage">Скидка на самосвалы<br/>при заказе погрузчика<br/>или экскаватора</h4>
-                <h4 class="about__advantage">Скидки<br/>для постоянных<br/>клиентов</h4>
-                <h4 class="about__advantage">14 лет на рынке<br/>нерудных материалов</h4>
-                <h4 class="about__advantage">Работаем<br/>по Омской области</h4>
-                <h4 class="about__advantage">Работаем<br/>24 часа в сутки </h4>
+                <h4 class="about__advantage">Только опытные специалисты</h4>
+				<h4 class="about__advantage">Большой собственный автопарк</h4>
+				<h4 class="about__advantage">Скидки<br/>постоянным<br/>клиентам</h4>
+				<h4 class="about__advantage">14&nbsp;лет&nbsp;на&nbsp;рынке нерудных материалов</h4>
+				<h4 class="about__advantage">Работаем по&nbsp;городу<br/>и области</h4>
+				<h4 class="about__advantage">Работаем<br/>24&nbsp;часа&nbsp;в&nbsp;сутки, 7&nbsp;дней&nbsp;в&nbsp;неделю</h4>
             </div><!-- /end .about__advantages -->
         </div><!-- /end .about__inner -->
     </div><!-- /end .about -->

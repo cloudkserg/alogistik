@@ -1,7 +1,6 @@
 <footer class="footer">
     <div class="footer__inner">
         <p class="copyrights">&copy; 2014,&nbsp;<a class="copyrights__link" href="#toTop">АльфаЛогистик</a></p>
-        <p class="developer">Дизайн-бюро&nbsp;<a class="developer__link" href="http://apparat.ws">«Аппарат»</a></p>
 
         <nav class="main-nav">
             <ul class="main-nav__list">
@@ -12,4 +11,6 @@
             </ul>
         </nav>
     </div><!-- /end .footer__inner -->
+    
+    <p class="developer">Дизайн-бюро&nbsp;<a class="developer__link" href="http://apparat.ws">«Аппарат»</a></p>
 </footer><!-- /end .footer -->

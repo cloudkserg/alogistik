@@ -1,4 +1,4 @@
-var AL_Popups = function(me, $) {
+var AL_OrderPopup = function(me, $) {
 
     var popup,
 
@@ -19,10 +19,16 @@ var AL_Popups = function(me, $) {
             materialWeightInput: 'order-cost-calc__material_weight',
             orderForm: 'order-popup__order_form',
             orderBtn: 'order-popup__order_btn',
-            orderFormField: 'order-popup__order_form_field'
+            orderFormField: 'order-popup__order_form_field',
+            sendingResultContainer: 'order-popup__sending_results',
+            resendBtn: 'order-popup__sending_results_resend_btn'
         },
 
         cache = {},
+
+        sending = false,
+
+        closeOnOrderBtnClick = false,
 
         orderPhoneIsValid = false,
 
@@ -36,6 +42,7 @@ var AL_Popups = function(me, $) {
             $(document).on('keyup', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyup);
             $(document).on('keyup', '.' + classMap.orderFormField, eventHandlers.onOrderFormFieldKeyup);
             $(document).on('click', '.' + classMap.orderBtn, eventHandlers.onOrderBtnClick);
+            $(document).on('click', '.' + classMap.resendBtn, send);
         },
 
         create = function(type, data) {
@@ -158,7 +165,6 @@ var AL_Popups = function(me, $) {
                 technicParams.appendTo(popupContent);
             }
 
-
             $('<div class="' + classMap.orderForm + '">' +
                 '<div class="order-popup__order_form_field_container orderFirstLastName">' +
                     '<input class="' + classMap.orderFormField + '" type="text" placeholder="Имя и фамилия"/>' +
@@ -173,14 +179,19 @@ var AL_Popups = function(me, $) {
                     '<span class="order-popup__order_form_field_desc">На этот адрес мы доставим заказ</span>' +
                 '</div>' +
               '</div>' +
+              '<div class="' + classMap.sendingResultContainer + '">' +
+                '<p class="order-popup__sending_results_head">Head</p>' +
+                '<p class="order-popup__sending_results_desc">Desc</p>' +
+                '<p class="order-popup__sending_results_resend_btn">Повторить</p>'+
+              '</div>' +
               '<div class="order-popup__order_btn_wrapper">' +
                 '<div class="order-popup__order_btn_container">' +
                     '<div class="' + classMap.orderBtn + '">Заказать</div>' +
                     '<p class="order-popup__order_note">Цена является предварительной.<br/>Менеджер свяжется с вами<br/>для уточнения деталей</p>' +
                 '</div>' +
-                '<div class="order-popup__book_call_container">' +
-                    '<p class="order-popup__book_call_phone_number">55-66-77</p>' +
-                    '<a class="order-popup__book_call_btn" href="#book-call">Заказать обратный звонок</a>' +
+                '<div class="order-popup__call_back_container">' +
+                    '<p class="order-popup__call_back_phone_number">55-66-77</p>' +
+                    '<a class="order-popup__call_back_btn" href="#book-call">Заказать обратный звонок</a>' +
                 '</div>' +
               '</div>').appendTo(popupContent);
 
@@ -244,6 +255,15 @@ var AL_Popups = function(me, $) {
             cache.orderFormAddressInput = cache.orderFormAddressInputContainer.children('.order-popup__order_form_field');
             cache.orderFormAddressInputDescEl = cache.orderFormAddressInputContainer.children('.order-popup__order_form_field_desc');
             cache.orderFormAddressInputDesc = cache.orderFormAddressInputDescEl.html();
+
+            cache.innerEl = $('.' + classMap.inner);
+
+            cache.orderBtn = $('.' + classMap.orderBtn);
+
+            cache.sendingResult = $('.' + classMap.sendingResultContainer);
+            cache.sendingResultsHead = cache.sendingResult.children('.' + classMap.sendingResultContainer + '_head');
+            cache.sendingResultsDesc = cache.sendingResult.children('.' + classMap.sendingResultContainer + '_desc');
+            cache.resendBtn = $('.' + classMap.resendBtn);
         },
 
         show = function() {
@@ -276,6 +296,10 @@ var AL_Popups = function(me, $) {
                     converter.hide();
                     converter.preventHideOnDocumentClick(false);
                 }
+
+                closeOnOrderBtnClick = false;
+
+                orderPhoneIsValid = false;
 
                 popup.remove();
 
@@ -413,14 +437,26 @@ var AL_Popups = function(me, $) {
             },
 
             onOrderBtnClick: function(event) {
+                if (sending) return;
+
+                if (closeOnOrderBtnClick) {
+                    hide();
+
+                    return;
+                }
+
                 if (!cache.orderForm.is(':visible')) {
                     if (popupType === 'technic') {
                         popup.addClass('with_order_form');
+
+                        cache.orderForm.appendTo(cache.innerEl);
+                        cache.sendingResult.appendTo(cache.innerEl);
+                        $('.order-popup__order_btn_wrapper').appendTo(cache.innerEl);
                     }
 
                     $(this).text('Отправить');
 
-                    cache.orderForm.slideDown(200);
+                    cache.orderForm.slideDown(400);
                 }
                 else {
                     if (!cache.orderFormFLNameInput.val().length) {
@@ -453,7 +489,8 @@ var AL_Popups = function(me, $) {
                     if (!(cache.orderFormFLNameInputContainer.hasClass('not_valid') ||
                           cache.orderFormPhoneInputContainer.hasClass('not_valid') ||
                           cache.orderFormAddressInputContainer.hasClass('not_valid'))) {
-                        alert('SUBMIT');
+
+                        send(event);
                     }
                 }
             },
@@ -478,6 +515,56 @@ var AL_Popups = function(me, $) {
                     }
                 }
             }
+        },
+
+        send = function(event) {
+            var fio = cache.orderFormFLNameInput.val(),
+                phone = cache.orderFormPhoneInput.val(),
+                address = cache.orderFormAddressInput.val();
+
+            cache.orderBtn.text('Отправка...').addClass('sending');
+
+            if (!$(event.target).hasClass(classMap.resendBtn)) {
+                cache.orderForm.addClass('hideAnimation');
+                cache.orderForm.slideUp(400);
+
+                $('.order-popup__order_note').hide();
+                $('.order-popup__call_back_container').hide();
+            }
+
+            cache.sendingResult.slideUp(100);
+
+            setTimeout(function() {
+                cache.sendingResult.removeClass('error');
+            }, 200);
+
+            setTimeout(function() {
+                $.post('/mail/send', {
+                    fio: fio,
+                    phone: phone,
+                    address: address
+
+                }).done(function() {
+
+                    cache.sendingResultsHead.text('Заявка успешно отправлена!');
+                    cache.sendingResultsDesc.html('Менеджер перезвонит вам <br/>в течении рабочего дня');
+
+                }).fail(function() {
+
+                    cache.sendingResult.addClass('error');
+                    cache.resendBtn.show();
+                    cache.sendingResultsHead.text('Ошибка при отправке заявки!');
+                    cache.sendingResultsDesc.html('Попробуйте повторить<br/>отправку позже');
+
+                }).always(function() {
+
+                    closeOnOrderBtnClick = true;
+                    cache.sendingResult.slideDown(100);
+                    cache.orderBtn.text('Спасибо!').removeClass('sending');
+                    sending = false;
+
+                });
+            }, 1000);
         };
 
     return {
@@ -490,4 +577,4 @@ var AL_Popups = function(me, $) {
         }
     }
 
-}(AL_Popups || {}, jQuery);
+}(AL_OrderPopup || {}, jQuery);

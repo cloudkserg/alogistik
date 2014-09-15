@@ -94,7 +94,7 @@ var AL_Materials = function(me, $) {
                 popupData.materialName = parent.find('.sale-material__name').text();
                 popupData.imgSrc = parent.find('.sale-material__img').attr('src');
 
-                AL_Popups.show("material", popupData);
+                AL_OrderPopup.show("material", popupData);
             }
         };
 

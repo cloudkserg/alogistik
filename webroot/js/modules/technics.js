@@ -21,7 +21,7 @@ var AL_Technics = function(me, $) {
                 popupData.technicName = parent.find('.rent-spec-technic__name').text();
                 popupData.technicType = parent.find('.rent-spec-technic__desc').text();
 
-                AL_Popups.show("technic", popupData);
+                AL_OrderPopup.show("technic", popupData);
             }
         };
 

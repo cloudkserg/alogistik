@@ -11,13 +11,13 @@
         )
     );
     ?>
-    <?php $this->widget('TextareaField',array(
+    <?php /*$this->widget('TextareaField',array(
             'model' => $item,
             'field' => 'text',
             'label' => 'Текст',
             'fck'   => true
         )
-    );
+    );*/
     ?>
     <?php $this->widget('ListField', array(
             'model'   => $item,
@@ -30,7 +30,7 @@
     <?php $this->widget('TextField',array(
             'model' => $item,
             'field' => 'begin_price',
-            'label' => 'Начальная цена'
+            'label' => 'Цена'
         )
     );
     ?>
@@ -56,7 +56,7 @@
     );
     ?>
 </form>
-<h3>Загрузить изображения</h3>
+<h3>Загрузить изображения (размеры не менее <b>600 x 376</b>)</h3>
 <?php $this->widget('ImageUploader', array(
             'field' =>  'image',
             'item'  =>  $item,

@@ -3,6 +3,7 @@ var AL_Navigation = (function(me, $) {
     var toTopBtnVisibilityBound = 500,
 
         cache = {
+            body: $('bosy'),
             header: $('.header'),
             scrollspysEls: $('.js-scrollspy'),
             toTopBtn: $('.to-top-btn'),
@@ -11,6 +12,8 @@ var AL_Navigation = (function(me, $) {
             toFullCompanyInfoLink: $('.short-company-info__link_to_full_info'),
             toMapLink: $('.short-company-info__address')
         },
+
+        timer,
 
         bind = function() {
             cache.logo.on('click', eventHandlers.onLogoClick);

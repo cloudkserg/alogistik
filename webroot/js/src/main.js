@@ -10,11 +10,13 @@ $(document).ready(function() {
 
     AL_Map.init();
 
-    AL_Popups.init();
+    AL_CallbackPopup.init();
+
+    AL_OrderPopup.init();
+
+    AL_Services.init();
 
     AL_Technics.init();
 
     AL_Converter.init();
-
-    AL_Services.init();
 });

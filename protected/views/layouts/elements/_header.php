@@ -14,9 +14,9 @@
 
         <div class="online-call-btn">Звонок онлайн</div>
 
-        <div class="book-call">
-            <p class="book-call__phone_number"><a class="book-call__phone_number_mob_helper" href="tel:+7(3812)55-66-77">+7&nbsp;3812&nbsp;55-66-77</a></p>
-            <a class="book-call__btn" href="#book-call">Заказать обратный звонок</a>
+        <div class="call-back">
+            <p class="call-back__phone_number"><a class="call-back__phone_number_mob_helper" href="tel:+7(3812)55-66-77"><span class="call-back__phone_number_code">+7&nbsp;3812</span>&nbsp;55-66-77</a></p>
+            <a class="call-back__btn" href="#book-call">Заказать обратный звонок</a>
         </div>
 
         <div class="short-company-info">

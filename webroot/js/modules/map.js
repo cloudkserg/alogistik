@@ -27,6 +27,8 @@ var AL_Map = function(me, $) {
                         controls: ['zoomControl', 'geolocationControl']
                     });
 
+                    map.behaviors.disable(['scrollZoom']);
+
                     addBaloon();
 
                     changeState();
@@ -53,7 +55,7 @@ var AL_Map = function(me, $) {
         },
 
         changeState = function() {
-            map.behaviors[(map && $(window).height() <= 500) ? 'disable' : 'enable'](['multiTouch', 'scrollZoom']);
+            map.behaviors[(map && $(window).height() <= 500) ? 'disable' : 'enable'](['multiTouch']);
         },
 
         setMapInitSettings = function() {

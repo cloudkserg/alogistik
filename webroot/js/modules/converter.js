@@ -16,6 +16,8 @@ var AL_Converter = function(me, $) {
 
         opened = false,
 
+        preOpened = false,
+
         needPreventHide = false,
 
         units = cache.inputContainer.data('units'),
@@ -23,6 +25,7 @@ var AL_Converter = function(me, $) {
         bind = function() {
             cache.docket.on('click', eventHandlers.onDocketClick);
             cache.docket.on('mouseenter', eventHandlers.onDocketMouseEnter);
+            cache.converter.on('mouseleave', eventHandlers.onConverterMouseLeave);
             cache.input.on('keypress', eventHandlers.onInputKeyPress);
             cache.input.on('keyup', eventHandlers.onInputKeyup);
             cache.swapBtn.on('click', eventHandlers.onSwapBtnClick);
@@ -58,10 +61,17 @@ var AL_Converter = function(me, $) {
 
             if (Modernizr.cssanimations) {
                 cache.converter.addClass('showAnimation').removeClass('hideAnimation');
+
+                if (preOpened) {
+                    setTimeout(function(){
+                        cache.converter.removeClass('hover');
+                        preOpened = false;
+                    }, 500);
+                }
             }
             else {
                 cache.converter.animate({
-                    right: '-20px'
+                    right: '-40px'
                 }, 500);
             }
         },
@@ -75,7 +85,8 @@ var AL_Converter = function(me, $) {
                 cache.converter.addClass('hideAnimation').removeClass('showAnimation');
 
                 setTimeout(function() {
-                    cache.converter.removeClass('hideAnimation');
+                    cache.converter.removeClass('hideAnimation unHover hover');
+                    preOpened = false;
                 }, 600);
             }
             else {
@@ -121,11 +132,25 @@ var AL_Converter = function(me, $) {
                     return;
                 }
 
-                cache.converter.addClass('hover');
+                if (Modernizr.cssanimations) {
+                    cache.converter.addClass('hover');
+                    preOpened = true;
+                }
+            },
 
-                setTimeout(function() {
-                    cache.converter.removeClass('hover');
-                }, 600);
+            onConverterMouseLeave: function() {
+                if (opened) {
+                    return;
+                }
+
+                if (Modernizr.cssanimations && preOpened) {
+                    preOpened = false;
+                    cache.converter.addClass('unHover').removeClass('hover');
+
+                    setTimeout(function() {
+                        cache.converter.removeClass('unHover');
+                    }, 400);
+                }
             },
 
             onInputKeyPress: function(event) {

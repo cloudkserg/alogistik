@@ -30,12 +30,12 @@
     <?php $this->widget('TextField',array(
             'model' => $item,
             'field' => 'begin_price',
-            'label' => 'Начальная цена'
+            'label' => 'Цена'
         )
     );
     ?>
 </form>
-<h3>Загрузить изображения</h3>
+<h3>Загрузить изображения (размеры не менее <b>460 x 346</b>)</h3>
 <?php $this->widget('ImageUploader', array(
             'field' =>  'image',
             'item'  =>  $item,
