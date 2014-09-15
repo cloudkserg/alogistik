@@ -2,7 +2,7 @@
 // Массив наcтроек
 return array(
     'sourceLanguage'=>'ru',
-    'name' => 'investomsk',
+    'name' => 'ООО «АльфаЛогистик»',
 
     // preloading 'log' component
     'preload'=>array('log'),
