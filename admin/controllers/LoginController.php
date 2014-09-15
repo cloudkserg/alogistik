@@ -38,7 +38,7 @@ class LoginController extends Controller
      */
     public function actionIndex()
     {
-        $this->loginBeh->renderForm();
+        $this->loginBeh->renderForm('admin.views.login.index');
     }
 
     /**
