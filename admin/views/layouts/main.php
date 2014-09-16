@@ -18,8 +18,8 @@ Yii::app()->clientScript->registerPackage('admin.ajax');
            <?=$content;?>
         </div>
         <footer>
-            <p>Разработка «<a href="http://apparat.ws" title="apparat">«Аппарат»</a>», 2014</p>
-            <small>© «<a href="<?php echo GetUrl::getBaseUrl(); ?>/" title="Перейти на сайт">© ООО «АльфаЛогистик»</a>», 2000—<?php echo date("Y"); ?></small> </footer> <div id="ajaxLoader">
+            <p>Разработка «<a href="http://apparat.ws" title="apparat">Аппарат</a>», 2014</p>
+            <small>© ООО «<a href="<?php echo GetUrl::getBaseUrl(); ?>/" title="Перейти на сайт">АльфаЛогистик</a>», 2000—<?php echo date("Y"); ?></small> </footer> <div id="ajaxLoader">
 
         </div>
 </body>

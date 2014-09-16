@@ -20,7 +20,7 @@
         </div>
 
         <div class="short-company-info">
-            <p class="short-company-info__address">Омск,&nbsp;ул.&nbsp;Звёздная,&nbsp;11</p>
+            <p class="short-company-info__address">Омск,&nbsp;ул.&nbsp;Звёздная,&nbsp;6/1</p>
             <a class="short-company-info__link_to_full_info" href="#contacts">Контактная информация и реквизиты</a>
         </div>
 

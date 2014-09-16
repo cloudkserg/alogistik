@@ -253,13 +253,13 @@ ul, p, h1, h2, h3, h4 {
 
     .ie8 .online-call-btn {
       &:hover {
-        background: #3F7D08;
+        background: #8DEE36;
         line-height: 32px;
       }
     }
 
     .call-back {
-      margin-top: ((@headerHeight - 52px) / 2);
+      margin-top: ((@headerHeight - 45px) / 2);
       transition: transform 300ms;
     }
 
@@ -367,8 +367,9 @@ ul, p, h1, h2, h3, h4 {
   }
 
   .call-back {
-    margin-top: ((@headerMinimizedHeight - 36px) / 2);
-    transform: translate3d(0, (((@headerHeight - 36px) / 2) - @headerMinimizedHeight) + 36px + ((@headerMinimizedHeight - 36px) / 2), 0);
+    position: relative;
+    margin-top: ((@headerMinimizedHeight - 25px) / 2);
+    transform: translate3d(0, (((@headerHeight - 25px) / 2) - @headerMinimizedHeight) + 25px + ((@headerMinimizedHeight - 25px) / 2), 0);
   }
 
   .call-back__btn {
@@ -424,7 +425,7 @@ ul, p, h1, h2, h3, h4 {
 }
 
 .ie8 .headerMinimized {
-  &.header {
+  .header {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP4/wkAAvMB8suBnGEAAAAASUVORK5CYII=);
     border-bottom: 1px solid #ccc;
   }
@@ -632,6 +633,7 @@ ul, p, h1, h2, h3, h4 {
   }
 
     .sale-material__img_container {
+      display: block;
       position: relative;
       .square(150px);
       border-radius: 8px;
@@ -734,6 +736,7 @@ ul, p, h1, h2, h3, h4 {
   }
 
     .rent-spec-technic__img_container {
+      display: block;
       position: relative;
       .dims(200px, 125px);
       border-radius: 8px;
@@ -1111,7 +1114,7 @@ ul, p, h1, h2, h3, h4 {
     }
 
       .order-material-popup__desc {
-        margin: 5px 0 0;
+        margin: 5px 0 20px;
         width: 490px;
         font-size: 16px;
         line-height: 22px;
@@ -1345,7 +1348,6 @@ ul, p, h1, h2, h3, h4 {
             border: 1px solid @defLinkColor;
             border-radius: 4px;
             font-size: 24px;
-            line-height: 33px;
             font-weight: normal;
             outline:none;
             padding: 0 10px;
@@ -1355,6 +1357,10 @@ ul, p, h1, h2, h3, h4 {
             &::placeholder {
               color: @defTextColor;
             }
+          }
+
+          .ie8 .order-popup__order_form_field {
+            line-height: 40px;
           }
 
           .order-popup__order_form_field_desc {
@@ -1607,7 +1613,6 @@ ul, p, h1, h2, h3, h4 {
       border: 1px solid #19709A;
       box-shadow: inset 0px 2px 3px 0px rgba(0,0,0,0.50);
       font-size: 16px;
-      line-height: 22px;
       padding: 0 10px;
       font-weight: normal;
 
@@ -1619,6 +1624,10 @@ ul, p, h1, h2, h3, h4 {
           color: #CF1D1D;
         }
       }
+    }
+
+    .ie8 .call-back-popup__input {
+      line-height: 40px;
     }
 
   .call-back-popup__desc {
@@ -1637,6 +1646,7 @@ ul, p, h1, h2, h3, h4 {
     height: 40px;
     line-height: 40px;
     border-radius: 10px;
+    background: #EEEEEE;
     background-image: linear-gradient(-180deg, #FFFFFF 0%, #F5F5F5 49%, #EEEEEE 97%);
     box-shadow: inset 0px -2px 2px 0px #D6D6D6;
     font-size: 15px;
@@ -1668,6 +1678,10 @@ ul, p, h1, h2, h3, h4 {
         rgba(255, 154, 26, 0) 50%, #2E9ED4 50%,
         #2E9ED4 75%, rgba(255, 154, 26, 0) 75%);
     }
+  }
+
+  .ie8 .call-back-popup__order_btn.sending {
+    background: #EEEEEE;
   }
 
   .call-back-popup__resend_order_btn {

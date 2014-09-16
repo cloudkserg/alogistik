@@ -19,6 +19,16 @@ var AL_Materials = function(me, $) {
             cache.materialImg.on('click', showPopup);
         },
 
+        openFromHash = function() {
+            var hash = decodeURIComponent(window.location.hash);
+
+            if (hash) {
+                cache.materialImg.filter(function() {
+                     return $(this).attr('href') === hash;
+                }).trigger('click', true);
+            }
+        },
+
         preloadBackgrounds = function() {
 
             cache.materialsEls.each(function(index) {
@@ -85,22 +95,30 @@ var AL_Materials = function(me, $) {
             }
         },
 
-        showPopup = function(event) {
+        showPopup = function(event, needScrollToSection) {
             var target = $(event.target),
                 parent = target.parents('.sale-material'),
-                popupData = parent.data('popup-data');
+                popupData = parent.data('popup-data'),
+                delay = !needScrollToSection ? 0 : 200;
 
             if (popupData) {
                 popupData.materialName = parent.find('.sale-material__name').text();
                 popupData.imgSrc = parent.find('.sale-material__img').attr('src');
 
-                AL_OrderPopup.show("material", popupData);
+                if (needScrollToSection) {
+                    AL_Navigation.navigateTo(cache.materialImg.parents('.js-scrollspy').attr('data-nav-id'));
+                }
+
+                setTimeout(function() {
+                    AL_OrderPopup.show("material", popupData);
+                }, delay);
             }
         };
 
     return {
         init: function() {
             bind();
+            openFromHash();
             preloadBackgrounds();
         }
     }

@@ -4,9 +4,9 @@
 $(document).ready(function() {
     AL_Header.init();
 
-    AL_Materials.init();
-
     AL_Navigation.init();
+
+    AL_Materials.init();
 
     AL_Map.init();
 

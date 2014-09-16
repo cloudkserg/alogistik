@@ -13,8 +13,6 @@ var AL_Navigation = (function(me, $) {
             toMapLink: $('.short-company-info__address')
         },
 
-        timer,
-
         bind = function() {
             cache.logo.on('click', eventHandlers.onLogoClick);
             cache.toTopBtn.on('click', scrollToTop);
@@ -41,14 +39,14 @@ var AL_Navigation = (function(me, $) {
             },
 
             onToFullCompanyInfoLinkClick: function() {
-                cache.mainNavItems.filter('[data-nav-id="contacts"]').trigger('click');
+                navigateTo('contacts');
 
                 return false;
             },
 
             toMapLinkClick: function() {
                 if (AL_Header.isMinimized()) {
-                    cache.mainNavItems.filter('[data-nav-id="contacts"]').trigger('click');
+                    navigateTo('contacts');
                 }
             }
         },
@@ -94,6 +92,10 @@ var AL_Navigation = (function(me, $) {
 
         scrollToTop = function() {
             scrollTo();
+        },
+
+        navigateTo = function(dataNavId) {
+            cache.mainNavItems.filter('[data-nav-id="' + dataNavId + '"]').trigger('click');
         };
 
     return {
@@ -101,6 +103,8 @@ var AL_Navigation = (function(me, $) {
             initWayPoints();
             bind();
             changeToTopBtnState();
-        }
+        },
+
+        navigateTo: navigateTo
     }
 }(AL_Navigation || {}, jQuery));

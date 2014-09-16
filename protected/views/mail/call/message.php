@@ -1,3 +1,1 @@
-Данные:<br />
-ФИО: <?=Text::encode($filter->fio)?><br />
-Телефон: <?=Text::encode($filter->phone)?><br />
+<?=Text::encode($filter->fio)?> заказал звонок с главной страницы сайта, перезвоните ему на номер <?=Text::encode($filter->phone)?> в течении 5 минут.

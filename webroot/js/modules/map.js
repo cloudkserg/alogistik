@@ -22,7 +22,7 @@ var AL_Map = function(me, $) {
             loadMapLibrary(function() {
                 ymaps.ready(function () {
                     map = new ymaps.Map('map', {
-                        center: [54.9932, 73.2426],
+                        center: [54.993117, 73.24349],
                         zoom: 16,
                         controls: ['zoomControl', 'geolocationControl']
                     });
@@ -46,7 +46,7 @@ var AL_Map = function(me, $) {
                     iconLayout: 'default#image',
                     iconImageHref: 'img/i/mapIcon@2x.png',
                     iconImageSize: [61, 76],
-                    iconImageOffset: [-30, -72]
+                    iconImageOffset: [-15, -72]
                 });
 
             map.geoObjects.add(myPlacemark);

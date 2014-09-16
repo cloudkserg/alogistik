@@ -27,12 +27,12 @@
                         ]
                     ]
                 }'>
-                    <div class="rent-spec-technic__img_container">
+                    <a class="rent-spec-technic__img_container" href="#<?php echo str_replace(' ', '-', $service->car->title).'-'.str_replace(' ', '-', $service->title)?>">
                         <img class="rent-spec-technic__img" src="<?=PImageHelper::firstImage($service, 'alt')?>" alt="altText"/>
                         <div class="rent-spec-technic__see_more">
                             <p class="rent-spec-technic__see_more_text">Узнать больше</p>
                         </div>
-                    </div>
+                    </a>
                     <h3 class="rent-spec-technic__name"><?=$service->title?></h3>
                     <p class="rent-spec-technic__desc"><?=$service->car->title?></p>
                     <p class="rent-spec-technic__price"><b><?=$service->begin_price?><span class="ruble">p</span></b>&nbsp;в&nbsp;час</p>

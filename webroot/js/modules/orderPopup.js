@@ -73,7 +73,7 @@ var AL_OrderPopup = function(me, $) {
                 }).appendTo(popupInnerEl);
             }
 
-            $('<div class="' + specificClass + '__img_container">' +
+            $('<div class="' + specificClass + '__img_container' + ((data.fractions && data.fractions.length) ? "" : " loaded") + '">' +
                 '<img class="' + specificClass + '__img" src="' + data.imgSrc + '" alt="altText"/>' +
               '</div>').appendTo((type === 'material') ? popupInnerEl : mainContent);
 
@@ -84,39 +84,43 @@ var AL_OrderPopup = function(me, $) {
             if (type === 'material') {
                 $('<p class="' + specificClass + '__desc">'+ data.desc +'</p>').appendTo(popupContent);
 
-                var materialFractionChooser = $('<ul/>', {
-                    class: 'material_fraction_chooser'
-                });
+                if (data.fractions && data.fractions.length) {
+                    var materialFractionChooser = $('<ul/>', {
+                        class: 'material_fraction_chooser'
+                    });
 
-                $.each(data.fractions, function(index, item) {
-                    $('<li/>', {
-                        class: classMap.materialFractionChooserItem,
-                        html: '<p class="' + classMap.materialFractionChooserItem + '_material_fraction">' + item.fraction + '</p>' +
-                              '<p class="' + classMap.materialFractionChooserItem + '_material_price">' + item.price + '<span class="ruble">p</span></p>'
-                    }).attr('data-img', item.img).appendTo(materialFractionChooser);
-                });
+                    $.each(data.fractions, function(index, item) {
+                        $('<li/>', {
+                            class: classMap.materialFractionChooserItem,
+                            html: '<p class="' + classMap.materialFractionChooserItem + '_material_fraction">' + item.fraction + '</p>' +
+                                '<p class="' + classMap.materialFractionChooserItem + '_material_price">' + item.price + '<span class="ruble">p</span></p>'
+                        }).attr('data-img', item.img).appendTo(materialFractionChooser);
+                    });
 
-                materialFractionChooser.appendTo(popupContent);
+                    materialFractionChooser.appendTo(popupContent);
 
-                $('<div class="order-cost-calc">' +
-                    '<div class="order-cost-calc__material_weight_input_container">' +
-                        '<input class="' + classMap.materialWeightInput + '" maxlength="2" type="text" value="2"/>' +
-                        '<span class="order-cost-calc__material_weight_unit"></span>' +
-                        '<span class="order-cost-calc__material_weight_desc"></span>' +
-                    '</div>' +
-                    '<span class="order-cost-calc__multiple_sign">×</span>' +
-                    '<div class="order-cost-calc__material_type_container">' +
-                        '<p class="order-cost-calc__material_price">' +
-                        '<span class="order-cost-calc__material_price_value">0</span>' +
-                        '<span class="ruble">p</span></p>' +
-                        '<p class="order-cost-calc__material_type"></p>' +
-                    '</div>' +
-                    '<span class="order-cost-calc__equals_sign">=</span>' +
-                    '<div class="order-cost-calc__total">' +
-                        '<p class="' + classMap.materialTotalCost + '"><span class="odometer"></span><span class="ruble">p</span></p>' +
-                        '<p class="order-cost-calc__total_cost_desc">+ доставка</p>' +
-                    '</div>' +
-                  '</div>').appendTo(popupContent);
+
+                    $('<div class="order-cost-calc">' +
+                        '<div class="order-cost-calc__material_weight_input_container">' +
+                            '<input class="' + classMap.materialWeightInput + '" maxlength="2" type="text" value="2"/>' +
+                            '<span class="order-cost-calc__material_weight_unit"></span>' +
+                            '<span class="order-cost-calc__material_weight_desc"></span>' +
+                        '</div>' +
+                        '<span class="order-cost-calc__multiple_sign">×</span>' +
+                        '<div class="order-cost-calc__material_type_container">' +
+                            '<p class="order-cost-calc__material_price">' +
+                            '<span class="order-cost-calc__material_price_value">0</span>' +
+                            '<span class="ruble">p</span></p>' +
+                            '<p class="order-cost-calc__material_type"></p>' +
+                        '</div>' +
+                        '<span class="order-cost-calc__equals_sign">=</span>' +
+                        '<div class="order-cost-calc__total">' +
+                            '<p class="' + classMap.materialTotalCost + '"><span class="odometer"></span><span class="ruble">p</span></p>' +
+                            '<p class="order-cost-calc__total_cost_desc">+ доставка</p>' +
+                        '</div>' +
+                      '</div>').appendTo(popupContent);
+
+                }
             }
 
             if (type === 'technic') {
@@ -208,14 +212,19 @@ var AL_OrderPopup = function(me, $) {
             });
 
             if (type === 'material') {
-                new Odometer({
-                    el: cache.materialTotalCost[0],
-                    value: 0,
-                    format: '( ddd).dd'
-                });
 
-                cache.materialFractionChooserItems.first().trigger('click');
-                cache.materialWeightInput.trigger('keyup');
+                if (data.fractions && data.fractions.length) {
+                    new Odometer({
+                        el: cache.materialTotalCost[0],
+                        value: 0,
+                        format: '( ddd).dd'
+                    });
+                }
+
+                setTimeout(function() {
+                    cache.materialFractionChooserItems.first().trigger('click');
+                    cache.materialWeightInput.trigger('keyup');
+                }, 100);
             }
 
             show();
@@ -340,6 +349,8 @@ var AL_OrderPopup = function(me, $) {
                     overlay.remove();
                 });
             }
+
+            window.location.hash = '';
         },
 
         setMaterialCost = function(weight, price) {
@@ -362,10 +373,12 @@ var AL_OrderPopup = function(me, $) {
                         var imgLoader = new Image();
 
                         imgLoader.onload = function() {
-                            cache.materialImgHolder.attr('src', item.data('img'));
-                            setTimeout(function() {
-                                cache.materialImgContainer.addClass('loaded');
-                            }, 100);
+                            if (cache.materialImgHolder.length) {
+                                cache.materialImgHolder.attr('src', item.data('img'));
+                                setTimeout(function() {
+                                    cache.materialImgContainer.addClass('loaded');
+                                }, 100);
+                            }
                         };
 
                         cache.materialImgContainer.removeClass('loaded');
