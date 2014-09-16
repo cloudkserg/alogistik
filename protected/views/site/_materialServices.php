@@ -17,11 +17,12 @@
 
             <div class="service__content_inner">
             <?php foreach ($services as $service) : ?>
-                <div class="sale-material" data-bg="<?=PImageHelper::firstImage($service->getRelation('mainFraction'), 'bg')?>" 
+            <?php $imageItem = ($service->use_fraction) ? $service->getRelation('mainFraction') : $service; ?>
+                <div class="sale-material" data-bg="<?=PImageHelper::firstImage($imageItem, 'bg')?>" 
                     data-popup-data='<?=ServiceHelper::generatePopupData($service)?>'>
 
                         <div class="sale-material__img_container">
-                            <img class="sale-material__img" src="<?=PImageHelper::firstImage($service->getRelation('mainFraction'), 'alt')?>" alt="altText"/>
+                            <img class="sale-material__img" src="<?=PImageHelper::firstImage($imageItem, 'alt')?>" alt="altText"/>
                             <div class="sale-material__see_more">
                                 <p class="sale-material__see_more_text">Узнать<br/>больше</p>
                             </div>

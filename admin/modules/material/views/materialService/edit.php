@@ -34,6 +34,13 @@
         )
     );
     ?>
+    <?php $this->widget('CheckboxField',array(
+            'model' => $item,
+            'field' => 'use_fraction',
+            'label' => 'Использовать картинку из фракции'
+        )
+    );
+    ?>
 </form>
 <h3>Загрузить изображения (размеры не менее <b>460 x 346</b>)</h3>
 <?php $this->widget('ImageUploader', array(
