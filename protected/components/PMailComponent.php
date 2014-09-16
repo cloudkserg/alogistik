@@ -1,6 +1,6 @@
 <?php
 /**
- * MailComponent{
+ * PMailComponent{
  *
  * @package
  * @version
@@ -8,7 +8,7 @@
  * @author Kirya <cloudkserg11@gmail.com>
  * @license http://www.php.net/license/ PHP
  */
-class MailComponent extends CComponent
+class PMailComponent extends CComponent
 {
 
     //Тип почты
