@@ -48,7 +48,7 @@
 
     <?php $this->renderPartial('protected.views.layouts.elements._footer'); ?>
 
-    <div class="to-top-btn"></div>
+    <div class="to-top-btn js-scrollToTop"></div>
 
     <?php $this->widget('Converter'); ?>
 

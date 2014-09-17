@@ -22,13 +22,13 @@ var AL_CallbackPopup = function(me, $) {
         phoneIsValid = false,
 
         bind = function() {
-            $(document).on('click', eventHandlers.onDocumentClick);
-            $(document).on('click', '.' + classMap.closeBtn , hide);
-            $(document).on('click', '.' + classMap.orderBtn , eventHandlers.onOrderBtnClick);
-            $(document).on('click', '.' + classMap.resendOrderBtn , eventHandlers.onOrderBtnClick);
+            $(document).on('tap', eventHandlers.onDocumentClick);
+            $(document).on('tap', '.' + classMap.closeBtn , hide);
+            $(document).on('tap', '.' + classMap.orderBtn , eventHandlers.onOrderBtnClick);
+            $(document).on('tap', '.' + classMap.resendOrderBtn , eventHandlers.onOrderBtnClick);
             $(document).on('focus', '.' + classMap.input , eventHandlers.onInputFocus);
-            $(document).on('click', '.call-back__btn', eventHandlers.onCallbackBtnClick);
-            $(document).on('click', '.order-popup__call_back_btn', eventHandlers.onCallbackBtnClick);
+            $(document).on('tap', '.call-back__btn', eventHandlers.onCallbackBtnClick);
+            $(document).on('tap', '.order-popup__call_back_btn', eventHandlers.onCallbackBtnClick);
         },
 
         show = function(options) {
@@ -196,11 +196,9 @@ var AL_CallbackPopup = function(me, $) {
 
             onCallbackBtnClick: function() {
                 var btn = $(this),
-                    isFixed = !!btn.closest('.header').length,
+                    isFixed =  (Detectizr.device.type !== 'mobile') && btn.closest('.header').length,
                     options = {
-                        isFixed: isFixed,
-                        left: (!AL_Header.isMinimized() ? btn.offset().left : btn.parent().offset().left) - 20,
-                        top: (!AL_Header.isMinimized()) ? btn.offset().top - 15 : 15
+                        isFixed: isFixed
                     };
 
                 if (isFixed) {

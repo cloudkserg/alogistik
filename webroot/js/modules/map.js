@@ -33,7 +33,7 @@ var AL_Map = function(me, $) {
 
                     changeState();
 
-                    $(document).on('click', '.contacts__item_address', setMapInitSettings);
+                    $(document).on('tap', '.contacts__item_address', setMapInitSettings);
                 });
             });
         },

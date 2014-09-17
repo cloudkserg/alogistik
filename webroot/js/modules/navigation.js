@@ -6,6 +6,7 @@ var AL_Navigation = (function(me, $) {
             body: $('bosy'),
             header: $('.header'),
             scrollspysEls: $('.js-scrollspy'),
+            scrollToTopEls: $('.js-scrollToTop'),
             toTopBtn: $('.to-top-btn'),
             logo: $('.logo'),
             mainNavItems:  $('.main-nav__list_item'),
@@ -14,11 +15,11 @@ var AL_Navigation = (function(me, $) {
         },
 
         bind = function() {
-            cache.logo.on('click', eventHandlers.onLogoClick);
-            cache.toTopBtn.on('click', scrollToTop);
-            cache.mainNavItems.on('click', eventHandlers.onMainNavItemClick);
-            cache.toFullCompanyInfoLink.on('click', eventHandlers.onToFullCompanyInfoLinkClick);
-            cache.toMapLink.on('click', eventHandlers.toMapLinkClick);
+            cache.logo.on('tap', eventHandlers.onLogoClick);
+            cache.scrollToTopEls.on('tap', scrollToTop);
+            cache.mainNavItems.on('tap', eventHandlers.onMainNavItemClick);
+            cache.toFullCompanyInfoLink.on('tap', eventHandlers.onToFullCompanyInfoLinkClick);
+            cache.toMapLink.on('tap', eventHandlers.toMapLinkClick);
 
 
             $(window).on('scroll', changeToTopBtnState);
@@ -76,7 +77,7 @@ var AL_Navigation = (function(me, $) {
                 },
                 {
                     offset: function() {
-                        return AL_Header.isMinimized() ? AL_Header.minimizedHeight + 5 : AL_Header.height + 5;
+                        return (Detectizr.device.type !== 'mobile') ? (AL_Header.isMinimized() ? AL_Header.minimizedHeight + 5 : AL_Header.height + 5) : 5;
                     }
                 });
         },
@@ -95,7 +96,7 @@ var AL_Navigation = (function(me, $) {
         },
 
         navigateTo = function(dataNavId) {
-            cache.mainNavItems.filter('[data-nav-id="' + dataNavId + '"]').trigger('click');
+            cache.mainNavItems.filter('[data-nav-id="' + dataNavId + '"]').trigger('tap');
         };
 
     return {

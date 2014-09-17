@@ -9,7 +9,9 @@ var AL_Converter = function(me, $) {
             swapBtn: $('.converter__swap_btn'),
             result: $('.converter__result'),
             currentUnits: $('.converter__input_units'),
-            resultUnits: $('.converter__result_units')
+            resultUnits: $('.converter__result_units'),
+            infoBtn: $('.converter__info_btn'),
+            info: $('.converter__info')
         },
 
         materialDestiny = 0,
@@ -23,13 +25,14 @@ var AL_Converter = function(me, $) {
         units = cache.inputContainer.data('units'),
 
         bind = function() {
-            cache.docket.on('click', eventHandlers.onDocketClick);
+            cache.docket.on('tap', eventHandlers.onDocketClick);
             cache.docket.on('mouseenter', eventHandlers.onDocketMouseEnter);
             cache.converter.on('mouseleave', eventHandlers.onConverterMouseLeave);
             cache.input.on('keypress', eventHandlers.onInputKeyPress);
             cache.input.on('keyup', eventHandlers.onInputKeyup);
-            cache.swapBtn.on('click', eventHandlers.onSwapBtnClick);
-            $(document).on('click', eventHandlers.onDocumentClick);
+            cache.swapBtn.on('tap', eventHandlers.onSwapBtnClick);
+            cache.infoBtn.on('tap', eventHandlers.onInfoBtnClick);
+            $(document).on('tap', eventHandlers.onDocumentClick);
 
             new Odometer({
                 el: cache.result[0],
@@ -53,7 +56,15 @@ var AL_Converter = function(me, $) {
         },
 
         setResult = function() {
-            cache.result.text(convert(cache.input.val(), units));
+            var result = convert(cache.input.val(), units);
+
+            cache.result.text(result);
+
+            if (units === 'meters') {
+                setTimeout(function() {
+                    cache.resultUnits.text(getUnitsEnding(result, ['тонна', 'тонны', 'тонн']));
+                }, 1000);
+            }
         },
 
         show = function() {
@@ -94,6 +105,8 @@ var AL_Converter = function(me, $) {
                     right: '-' + cache.converter.outerWidth(true)
                 }, 500);
             }
+
+            cache.infoBtn.trigger('tap', true);
         },
 
         isOpened = function() {
@@ -106,11 +119,11 @@ var AL_Converter = function(me, $) {
 
         setMaterialByText = function(materialName) {
             var selectize = cache.materialChooser[0].selectize,
-                items = selectize.sifter.items;
+                options = selectize.options;
 
-            $.each(items, function(index, item) {
-                if (item.text === materialName) {
-                    selectize.setValue(item.value);
+            $.each(options, function(index, option) {
+                if (option.text === materialName) {
+                    selectize.setValue(option.value);
                 }
             });
         },
@@ -154,10 +167,29 @@ var AL_Converter = function(me, $) {
             },
 
             onInputKeyPress: function(event) {
-                return /\d/.test(String.fromCharCode(event.keyCode));
+                return /\d/.test(String.fromCharCode(event.which)) || (event.which === 8);
             },
 
-            onInputKeyup: function() {
+            onInputKeyup: function(event) {
+                var keyCode = event.keyCode;
+
+                if (keyCode === 40 || keyCode === 38) {
+
+                    // arrow up
+                    if (keyCode === 38) {
+                        cache.input.val(parseInt(cache.input.val(), 10) + 1);
+                    }
+
+                    // arrow down
+                    if (keyCode === 40) {
+                        cache.input.val(parseInt(cache.input.val(), 10) - 1);
+                    }
+                }
+
+                if (units === 'tonns') {
+                    cache.currentUnits.text(getUnitsEnding(cache.input.val(), ['тонна', 'тонны', 'тонн']));
+                }
+
                 setResult();
             },
 
@@ -178,22 +210,84 @@ var AL_Converter = function(me, $) {
                 setResult();
             },
 
+            onInfoBtnClick: function(event, forcedHide) {
+
+                if (!forcedHide) {
+                    cache.infoBtn.addClass('rotateAnimation');
+
+                    setTimeout(function() {
+                        cache.infoBtn.removeClass('rotateAnimation');
+                    }, 300);
+                }
+
+                if (forcedHide || cache.info.is(':visible')) {
+                    cache.info.addClass('hideAnimation');
+
+                    setTimeout(function() {
+                        cache.info.removeClass('hideAnimation');
+                        cache.info.hide();
+                    }, 300);
+                }
+                else {
+                    cache.info.show();
+                }
+            },
+
             onDocumentClick: function(event) {
                 if (!$(event.target).closest('.converter').length && !needPreventHide && opened) {
                     hide();
                 }
             }
+        },
+
+        getUnitsEnding = function(val, endings) {
+            var val = val + "",
+                oneDigitEnding = parseInt(val.slice(-1)),
+                twoDigitEnding = parseInt(val.slice(-2)),
+                ending;
+
+            if (val.indexOf('.') + 1) {
+                return endings[1];
+            }
+
+            if ((twoDigitEnding >= 5 && twoDigitEnding <= 20) || ((oneDigitEnding >= 5 && oneDigitEnding <= 9) || oneDigitEnding === 0)) {
+                ending = endings[2];
+            }
+            else if (oneDigitEnding === 1) {
+                ending = endings[0];
+            }
+            else {
+                ending = endings[1];
+            }
+
+            return ending;
         };
 
     cache.materialChooser.selectize({
         create: true,
 
         onInitialize: function() {
-            materialDestiny = parseFloat(this.options[this.caretPos].destiny);
+            var me = this;
+
+            $.each(me.options, function(index, option) {
+                if (!parseFloat(option.destiny)) {
+                    me.removeOption(option.value);
+                }
+            });
+
+            me.refreshOptions();
+
+            for (var firstKey in me.options) break;
+
+            firstKey = +firstKey;
+
+            me.setValue(firstKey);
+
+            materialDestiny = parseFloat(me.options[firstKey].destiny);
         },
 
         onChange: function(value) {
-            materialDestiny = parseFloat(this.options[value].destiny);
+            materialDestiny = this.options[value] && parseFloat(this.options[value].destiny);
 
             setResult();
         }
@@ -205,6 +299,8 @@ var AL_Converter = function(me, $) {
 
             cache.input.trigger('keyup');
         },
+
+        getUnitsEnding: getUnitsEnding,
 
         show: show,
 

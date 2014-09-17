@@ -16,7 +16,7 @@ var AL_Materials = function(me, $) {
 
         bind = function() {
             cache.materialImg.on('mouseenter', crossfadeBackgrounds);
-            cache.materialImg.on('click', showPopup);
+            cache.materialImg.on('tap', showPopup);
         },
 
         openFromHash = function() {
@@ -25,7 +25,7 @@ var AL_Materials = function(me, $) {
             if (hash) {
                 cache.materialImg.filter(function() {
                      return $(this).attr('href') === hash;
-                }).trigger('click', true);
+                }).trigger('tap', true);
             }
         },
 
@@ -104,6 +104,8 @@ var AL_Materials = function(me, $) {
             if (popupData) {
                 popupData.materialName = parent.find('.sale-material__name').text();
                 popupData.imgSrc = parent.find('.sale-material__img').attr('src');
+                popupData.materialPrice = parent.find('.sale-material__price').text();
+                popupData.materialPrice = parseInt(popupData.materialPrice) || parseInt(popupData.materialPrice.slice(3));
 
                 if (needScrollToSection) {
                     AL_Navigation.navigateTo(cache.materialImg.parents('.js-scrollspy').attr('data-nav-id'));

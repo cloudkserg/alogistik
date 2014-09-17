@@ -10,6 +10,8 @@ $(document).ready(function() {
 
     AL_Map.init();
 
+    AL_Converter.init();
+
     AL_CallbackPopup.init();
 
     AL_OrderPopup.init();
@@ -17,6 +19,4 @@ $(document).ready(function() {
     AL_Services.init();
 
     AL_Technics.init();
-
-    AL_Converter.init();
 });

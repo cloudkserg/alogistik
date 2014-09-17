@@ -7,7 +7,7 @@ var AL_Services = function(me, $) {
         },
 
         bind = function() {
-            $(document).on('click', '.service__see_more_btn_container', onMoreBtnClick);
+            $(document).on('tap', '.service__see_more_btn_container', onMoreBtnClick);
 
             cache.services.each(function() {
                 var serviceContainer = $(this),

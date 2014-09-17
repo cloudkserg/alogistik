@@ -5,8 +5,10 @@
                 <h2 class="service__head">Аренда самосвалов и&nbsp;спецтехники</h2>
                 <p class="service__desc_additional">Вся спецтехника арендуется только&nbsp;с&nbsp;водителем</p>
 
-                <a class="service__download_price_btn" href="<?=PFileHelper::firstFile($page)?>">Скачать прайс-лист</a>
-                <p class="service__price_desc">В прайс-листе содержится информация обо всех услугах, технике и их стоимости</p>
+				<?php if (isset($page)) : ?>
+                	<a class="service__download_price_btn" href="<?=PFileHelper::firstFile($page)?>" target="_blank">Скачать прайс-лист</a>
+					<p class="service__price_desc">В прайс-листе содержится информация обо всех услугах, технике и их стоимости</p>
+                <?php endif; ?>
             </div>
 
             <div class="service__content_inner">

@@ -30,7 +30,9 @@
         </div><!-- /end .contacts__map -->
         <div class="contacts__sticker">
 			<p class="contacts__item"><b>ООО «АльфаЛогистик»</b><br/>
-				8&nbsp;800&nbsp;200&nbsp;00&nbsp;00</p>
+				<a class="contacts__item_phone" href="tel:8(800)200-00-00">8&nbsp;800&nbsp;200&nbsp;00&nbsp;00</a><br>
+				<a class="contacts__item_email" href="mailto:mail@alogistic.ru">mail@alogistic.ru</a>
+            </p>
 			<p class="contacts__item">Юридический адрес:<br/>
 				<span class="contacts__item_address">644073, г. Омск,<br/>
 				ул. Звездная, д. 6/1</span>

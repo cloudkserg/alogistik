@@ -15,4 +15,6 @@
     </div>
 
     <div class="converter__docket"></div>
+    <div class="converter__info_btn"></div>
+    <div class="converter__info">Расчёт конвертера<br/>является приблизительным</div>
 </div><!-- /end .converter -->

@@ -5,7 +5,7 @@ var AL_Technics = function(me, $) {
         },
 
         bind = function() {
-            cache.technicImg.on('click', showPopup);
+            cache.technicImg.on('tap', showPopup);
         },
 
         openFromHash = function() {
@@ -14,7 +14,7 @@ var AL_Technics = function(me, $) {
             if (hash) {
                 cache.technicImg.filter(function() {
                     return $(this).attr('href') === hash;
-                }).trigger('click', true);
+                }).trigger('tap', true);
             }
         },
 

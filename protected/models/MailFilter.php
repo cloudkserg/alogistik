@@ -29,6 +29,22 @@ class MailFilter extends AFilter
      * @var string
      */
     public $address;
+    
+    public $orderType;
+    
+    public $weightString;
+    
+    public $materialName;
+    
+    public $cost;
+    
+    public $totalCost;
+    
+    public $technicType;
+    
+    public $technicName;
+    
+    public $price;
 
     /**
      * rules
@@ -38,8 +54,8 @@ class MailFilter extends AFilter
     public function rules()
     {
         return array(
-            array('fio,phone,address', 'VText'),
-            array('fio,phone,address', 'required')
+            array('fio,phone,address,orderType,weightString,materialName,cost,totalCost,technicType,technicName,price', 'VText'),
+            array('fio,phone,address,orderType', 'required')
         );
     }
 

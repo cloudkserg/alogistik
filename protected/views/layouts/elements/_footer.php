@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="footer__inner">
-        <p class="copyrights">&copy; 2014,&nbsp;<a class="copyrights__link" href="#toTop">АльфаЛогистик</a></p>
+        <p class="copyrights">&copy; 2014,&nbsp;<span class="copyrights__link js-scrollToTop">АльфаЛогистик</span></p>
 
         <nav class="main-nav">
             <ul class="main-nav__list">

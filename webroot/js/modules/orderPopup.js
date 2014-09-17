@@ -33,16 +33,16 @@ var AL_OrderPopup = function(me, $) {
         orderPhoneIsValid = false,
 
         bind = function() {
-            $(document).on('click', '.' + classMap.overlay, hide);
-            $(document).on('click', '.' + classMap.root, eventHandlers.onInnerClick);
-            $(document).on('click', '.' + classMap.closeBtn, hide);
-            $(document).on('click', '.' + classMap.materialFractionChooserItem, eventHandlers.onMaterialChooserItemClick);
+            $(document).on('tap', '.' + classMap.overlay, hide);
+            $(document).on('tap', '.' + classMap.root, eventHandlers.onInnerClick);
+            $(document).on('tap', '.' + classMap.closeBtn, hide);
+            $(document).on('tap', '.' + classMap.materialFractionChooserItem, eventHandlers.onMaterialChooserItemClick);
             $(document).on('keypress', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyPress);
-            $(document).on('click', '.' + classMap.materialWeightUnit, eventHandlers.onMaterialWeightUnitClick);
+            $(document).on('tap', '.' + classMap.materialWeightUnit, eventHandlers.onMaterialWeightUnitClick);
             $(document).on('keyup', '.' + classMap.materialWeightInput, eventHandlers.onMaterialWeightInputKeyup);
             $(document).on('keyup', '.' + classMap.orderFormField, eventHandlers.onOrderFormFieldKeyup);
-            $(document).on('click', '.' + classMap.orderBtn, eventHandlers.onOrderBtnClick);
-            $(document).on('click', '.' + classMap.resendBtn, send);
+            $(document).on('tap', '.' + classMap.orderBtn, eventHandlers.onOrderBtnClick);
+            $(document).on('tap', '.' + classMap.resendBtn, send);
         },
 
         create = function(type, data) {
@@ -89,7 +89,7 @@ var AL_OrderPopup = function(me, $) {
                         class: 'material_fraction_chooser'
                     });
 
-                    $.each(data.fractions, function(index, item) {
+                    $.each(data.fractions, function (index, item) {
                         $('<li/>', {
                             class: classMap.materialFractionChooserItem,
                             html: '<p class="' + classMap.materialFractionChooserItem + '_material_fraction">' + item.fraction + '</p>' +
@@ -98,29 +98,27 @@ var AL_OrderPopup = function(me, $) {
                     });
 
                     materialFractionChooser.appendTo(popupContent);
-
-
-                    $('<div class="order-cost-calc">' +
-                        '<div class="order-cost-calc__material_weight_input_container">' +
-                            '<input class="' + classMap.materialWeightInput + '" maxlength="2" type="text" value="2"/>' +
-                            '<span class="order-cost-calc__material_weight_unit"></span>' +
-                            '<span class="order-cost-calc__material_weight_desc"></span>' +
-                        '</div>' +
-                        '<span class="order-cost-calc__multiple_sign">×</span>' +
-                        '<div class="order-cost-calc__material_type_container">' +
-                            '<p class="order-cost-calc__material_price">' +
-                            '<span class="order-cost-calc__material_price_value">0</span>' +
-                            '<span class="ruble">p</span></p>' +
-                            '<p class="order-cost-calc__material_type"></p>' +
-                        '</div>' +
-                        '<span class="order-cost-calc__equals_sign">=</span>' +
-                        '<div class="order-cost-calc__total">' +
-                            '<p class="' + classMap.materialTotalCost + '"><span class="odometer"></span><span class="ruble">p</span></p>' +
-                            '<p class="order-cost-calc__total_cost_desc">+ доставка</p>' +
-                        '</div>' +
-                      '</div>').appendTo(popupContent);
-
                 }
+
+                $('<div class="order-cost-calc">' +
+                    '<div class="order-cost-calc__material_weight_input_container">' +
+                        '<input class="' + classMap.materialWeightInput + '" maxlength="3" type="text" value="2"/>' +
+                        '<span class="order-cost-calc__material_weight_unit"></span>' +
+                        '<span class="order-cost-calc__material_weight_desc"></span>' +
+                    '</div>' +
+                    '<span class="order-cost-calc__multiple_sign">×</span>' +
+                    '<div class="order-cost-calc__material_type_container">' +
+                        '<p class="order-cost-calc__material_price">' +
+                        '<span class="order-cost-calc__material_price_value">0</span>' +
+                        '<span class="ruble">p</span></p>' +
+                        '<p class="order-cost-calc__material_type"></p>' +
+                    '</div>' +
+                    '<span class="order-cost-calc__equals_sign">=</span>' +
+                    '<div class="order-cost-calc__total">' +
+                        '<p class="' + classMap.materialTotalCost + '"><span class="odometer"></span><span class="ruble">p</span></p>' +
+                        '<p class="order-cost-calc__total_cost_desc">+ доставка</p>' +
+                    '</div>' +
+                  '</div>').appendTo(popupContent);
             }
 
             if (type === 'technic') {
@@ -213,16 +211,23 @@ var AL_OrderPopup = function(me, $) {
 
             if (type === 'material') {
 
-                if (data.fractions && data.fractions.length) {
-                    new Odometer({
-                        el: cache.materialTotalCost[0],
-                        value: 0,
-                        format: '( ddd).dd'
-                    });
-                }
+                new Odometer({
+                    el: cache.materialTotalCost[0],
+                    value: 0,
+                    format: '( ddd).dd'
+                });
 
                 setTimeout(function() {
-                    cache.materialFractionChooserItems.first().trigger('click');
+                    if (data.fractions && data.fractions.length) {
+                        cache.materialFractionChooserItems.first().trigger('tap');
+                    }
+                    else {
+                        cache.materialPriceValue.text(popupData.materialPrice);
+                        cache.materialTypeValue.text('');
+
+                        setMaterialCost(cache.materialWeightInput.val(), popupData.materialPrice);
+                    }
+
                     cache.materialWeightInput.trigger('keyup');
                 }, 100);
             }
@@ -349,8 +354,6 @@ var AL_OrderPopup = function(me, $) {
                     overlay.remove();
                 });
             }
-
-            window.location.hash = '';
         },
 
         setMaterialCost = function(weight, price) {
@@ -364,7 +367,7 @@ var AL_OrderPopup = function(me, $) {
                 }
             },
 
-            onMaterialChooserItemClick: function(event) {
+            onMaterialChooserItemClick: function(event, justUpdatePrice) {
                 var item = $(this),
                     itemTypePrice = parseInt(item.children('.' + classMap.materialFractionChooserItem + '_material_price').text(), 10),
                     itemType = item.children('.' + classMap.materialFractionChooserItem + '_material_fraction').text(),
@@ -395,7 +398,9 @@ var AL_OrderPopup = function(me, $) {
 
                 item.addClass('active');
 
-                loadImg(item.data('img'));
+                if (!justUpdatePrice) {
+                    loadImg(item.data('img'));
+                }
 
                 cache.materialPriceValue.text(itemTypePrice);
                 cache.materialTypeValue.text(itemType);
@@ -404,7 +409,7 @@ var AL_OrderPopup = function(me, $) {
             },
 
             onMaterialWeightInputKeyPress: function(event) {
-                return /\d/.test(String.fromCharCode(event.keyCode));
+                return /\d/.test(String.fromCharCode(event.which)) || (event.which === 8);
             },
 
             onMaterialWeightUnitClick: function() {
@@ -418,25 +423,35 @@ var AL_OrderPopup = function(me, $) {
             },
 
             onMaterialWeightInputKeyup: function(event) {
-                var materialWeightString = cache.materialWeightInput.val(),
-                    materialWeight = parseInt(materialWeightString, 10);
+                var keyCode = event.keyCode;
 
-                if (materialWeight >= 5 && materialWeight <= 20) {
-                    cache.materialWeightUnit.text('тонн');
+                if (keyCode === 40 || keyCode === 38) {
+
+                    // arrow up
+                    if (keyCode === 38) {
+                        cache.materialWeightInput.val(parseInt(cache.materialWeightInput.val(), 10) + 1);
+                    }
+
+                    // arrow down
+                    if (keyCode === 40) {
+                        cache.materialWeightInput.val(parseInt(cache.materialWeightInput.val(), 10) - 1);
+                    }
                 }
-                else if (parseInt(materialWeightString.charAt(materialWeightString.length - 1), 10) === 1) {
-                    cache.materialWeightUnit.text('тонна');
-                }
-                else {
-                    cache.materialWeightUnit.text('тонны');
-                }
+
+                cache.materialWeightUnit.text(AL_Converter.getUnitsEnding(cache.materialWeightInput.val(), ['тонна', 'тонны', 'тонн']));
 
                 if (!cache.materialWeightInput.val().length) {
                     return false;
                 }
 
                 if (+cache.materialWeightInput.val() >= +cache.materialWeightInput.attr('value')) {
-                    cache.materialFractionChooserItems.filter('.active').trigger('click');
+
+                    if (cache.materialFractionChooserItems.length) {
+                        cache.materialFractionChooserItems.filter('.active').trigger('tap', true);
+                    }
+                    else {
+                        setMaterialCost(cache.materialWeightInput.val(), popupData.materialPrice);
+                    }
 
                     if (cache.materialWeightInputContainer.hasClass('not_valid')) {
                         cache.materialWeightInputContainer.removeClass('not_valid');
@@ -533,7 +548,27 @@ var AL_OrderPopup = function(me, $) {
         send = function(event) {
             var fio = cache.orderFormFLNameInput.val(),
                 phone = cache.orderFormPhoneInput.val(),
-                address = cache.orderFormAddressInput.val();
+                address = cache.orderFormAddressInput.val(),
+                data = {
+                    orderType: popupType,
+                    fio: fio,
+                    phone: phone,
+                    address: address
+                };
+
+            if (popupType === 'material') {
+                data.weight = cache.materialWeightInput.val();
+                data.weightString = data.weight + ' ' + AL_Converter.getUnitsEnding(cache.materialWeightInput.val(), ['тонна', 'тонны', 'тонн']);
+                data.materialName = (popupData.fractions && popupData.fractions.length) ? (popupData.materialName + '(' + cache.materialTypeValue.text() + ')') : popupData.materialName;
+                data.cost = (popupData.fractions && popupData.fractions.length) ? cache.materialPriceValue.text() : popupData.materialPrice;
+                data.totalCost = cache.materialWeightInput.val() * data.cost;
+            }
+
+            if (popupType === 'technic') {
+                data.technicName = popupData.technicName;
+                data.technicType = popupData.technicType;
+                data.price = popupData.price;
+            }
 
             cache.orderBtn.text('Отправка...').addClass('sending');
 
@@ -552,12 +587,7 @@ var AL_OrderPopup = function(me, $) {
             }, 200);
 
             setTimeout(function() {
-                $.post('/mail/send', {
-                    fio: fio,
-                    phone: phone,
-                    address: address
-
-                }).done(function() {
+                $.post('/mail/send', data).done(function() {
 
                     cache.sendingResultsHead.text('Заявка успешно отправлена!');
                     cache.sendingResultsDesc.html('Менеджер перезвонит вам <br/>в течении рабочего дня');

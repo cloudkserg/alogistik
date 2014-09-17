@@ -10,8 +10,11 @@ var AL_Header = (function(me, $) {
         isMinimized = false,
 
         bind = function() {
-            $(window).on('scroll', createThrottled(changeState, 100));
-            $(window).on('resize', createThrottled(changeState, 250));
+
+            if (Detectizr.device.type !== 'mobile') {
+                $(window).on('scroll', createThrottled(changeState, 100));
+                $(window).on('resize', createThrottled(changeState, 250));
+            }
         },
 
         createThrottled = function(fn, interval, scope) {
