@@ -50,7 +50,7 @@ class MaterialService extends CmsModel
             array('title, begin_price', 'VText'),
             array('text', 'VText', 'max' => VText::MAX),
 
-            array('material_id, sort, use_fraction', 'numerical'),
+            array('material_id, sort, use_fraction, unit', 'numerical'),
         );
     }
 

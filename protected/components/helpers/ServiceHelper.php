@@ -19,6 +19,7 @@ class ServiceHelper
         $jsonData = '{';
         
         $jsonData .= '"desc":"'.$service->text.'",';
+        $jsonData .= '"unit":"'.MaterialUnit::model()->getTitle($service->unit).'",';
         $jsonData .= '"fractions":[';
         
         $arrHelper = new ArrayHelper($service->fractions);

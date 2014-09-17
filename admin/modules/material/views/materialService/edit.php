@@ -34,6 +34,14 @@
         )
     );
     ?>
+    <?php $this->widget('ListField', array(
+            'model'   => $item,
+            'field'   => 'unit',
+            'label'   => 'Единица измерения',
+            'options' => MaterialUnit::model()->getData()
+        )
+    );
+    ?>
     <?php $this->widget('CheckboxField',array(
             'model' => $item,
             'field' => 'use_fraction',
