@@ -5,6 +5,7 @@
 <?php
 $this->widget('ModelTable', array(
     'dataProvider' => $dataProvider,
+    'useSort' => true, 
     'columns' => array(
         'id' => array('type' => 'id', 'width' => '50px'),
         'title' => array('type' => 'title', 'width' => '150px'),
