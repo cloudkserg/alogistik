@@ -24,10 +24,10 @@
         ?>
         <?php
             $this->widget('PointMenu', array(
-                    'label'  => 'Сервисы',
+                    'label'  => 'Услуги',
                     'links' => array(
-                        new ALink(new AModuleUrl('/service/service'), 'Сервисы'),
-                        new ALink(new AModuleUrl('/service/serviceItem'), 'Объекты сервисов'),
+                        new ALink(new AModuleUrl('/service/service'), 'Услуги'),
+                        new ALink(new AModuleUrl('/service/serviceItem'), 'Объекты услуг'),
                     )
                 )
             );
