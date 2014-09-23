@@ -106,12 +106,12 @@ class MaterialService extends CmsModel
                 'bg' => array(
                     'mode' => 'adaptive_crop',
                     'resize' => array(
-                        'width' => '320',
-                        'height' => '180',
+                        'width' => '460',
+                        'height' => '346',
                     ),
                     'crop' => array(
-                        'width' => '320',
-                        'height' => '180',
+                        'width' => '460',
+                        'height' => '346',
                     ),
 			'blur' => array()
                 ),

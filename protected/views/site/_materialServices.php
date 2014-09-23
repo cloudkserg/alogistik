@@ -19,7 +19,7 @@
             <?php foreach ($services as $service) : ?>
             <?php $imageItem = ($service->use_fraction) ? $service->getRelation('mainFraction') : $service; ?>
                 <div class="sale-material" data-bg="<?=PImageHelper::firstImage($imageItem, 'bg')?>" 
-                    data-popup-data='<?=ServiceHelper::generatePopupData($service)?>'>
+                    data-popup-data='<?=ServiceHelper::generateMaterialPopupData($service)?>'>
 
                         <a class="sale-material__img_container" href="#<?=str_replace(' ', '-', $service->getRelation('material')->title)?>">
                             <img class="sale-material__img" src="<?=PImageHelper::firstImage($imageItem, 'alt')?>" alt="altText"/>

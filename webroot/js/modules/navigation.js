@@ -77,7 +77,9 @@ var AL_Navigation = (function(me, $) {
                 },
                 {
                     offset: function() {
-                        return (Detectizr.device.type !== 'mobile') ? (AL_Header.isMinimized() ? AL_Header.minimizedHeight + 5 : AL_Header.height + 5) : 5;
+                        return (Detectizr.device.type !== 'mobile' && Detectizr.device.type !== 'tablet') ?
+                            (AL_Header.isMinimized() ? AL_Header.minimizedHeight + 5 : AL_Header.height + 5) :
+                            5;
                     }
                 });
         },

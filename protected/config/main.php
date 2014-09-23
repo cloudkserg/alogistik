@@ -2,7 +2,7 @@
 return array(
     'sourceLanguage'=>'ru',
     'charset' => 'utf-8',
-    'name' => 'investomsk',
+    'name' => 'АльфаЛогистик.рф',
 
     // preloading 'log' component
     'preload'=>array('log'),

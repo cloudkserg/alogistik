@@ -13,23 +13,7 @@
 
             <div class="service__content_inner">
             <?php foreach ($services as $service) : ?>
-                <div class="rent-spec-technic" data-popup-data='{
-                    "min_order" : "<?=$service->min_order?>",
-                    "params": [
-                        [
-                            {"name": "Длина", "value": "<?=$service->length?>", "ico": "length"}, 
-                            {"name": "Ширина", "value": "<?=$service->width?>", "ico": "width"}, 
-                            {"name": "Высота", "value": "<?=$service->height?>", "ico": "height"}
-                        ], [
-                        <?php $arrHelper = new ArrayHelper($service->params); foreach ($service->params as $key => $param) : ?>
-                            {"name": "<?=$param->title?>", "value": "<?=$param->value?>"}
-                            <?php if (!$arrHelper->isLastKey($key)) : ?>
-                                , 
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                        ]
-                    ]
-                }'>
+                <div class="rent-spec-technic" data-popup-data='<?=ServiceHelper::generateTechnicPopupData($service)?>'>
                     <a class="rent-spec-technic__img_container" href="#<?php echo str_replace(' ', '-', $service->car->title).'-'.str_replace(' ', '-', $service->title)?>">
                         <img class="rent-spec-technic__img" src="<?=PImageHelper::firstImage($service, 'alt')?>" alt="altText"/>
                         <div class="rent-spec-technic__see_more">

@@ -15,7 +15,7 @@
             'model' => $item,
             'field' => 'text',
             'label' => 'Текст',
-            'fck'   => true
+            'fck'   => false
         )
     );
     ?>
