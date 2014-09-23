@@ -14,6 +14,7 @@
             <div class="service__content_inner">
             <?php foreach ($services as $service) : ?>
                 <div class="rent-spec-technic" data-popup-data='{
+                    "min_order" : "<?=$service->min_order?>",
                     "params": [
                         [
                             {"name": "Длина", "value": "<?=$service->length?>", "ico": "length"}, 

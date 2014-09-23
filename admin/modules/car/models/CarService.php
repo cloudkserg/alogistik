@@ -47,7 +47,7 @@ class CarService extends CmsModel
         return array(
             array('title', 'required'),
             array('title, length, width, height, begin_price', 'VText'),
-            array('text', 'VText', 'max' => VText::MAX),
+            array('text,min_order', 'VText', 'max' => VText::MAX),
             array('sort, car_id', 'numerical')
         );
     }
@@ -85,7 +85,8 @@ class CarService extends CmsModel
                 'height'         => 'Высота',
                 'begin_price'         => 'Начальная цена',
                 'car_id'         => 'Машина',
-            )
+                'min_order' => 'Минимальный заказ'
+            ) 
         );
     }
 

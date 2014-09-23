@@ -36,6 +36,13 @@
     ?>
     <?php $this->widget('TextField',array(
             'model' => $item,
+            'field' => 'min_order',
+            'label' => 'Минимальный заказ'
+        )
+    );
+    ?>
+    <?php $this->widget('TextField',array(
+            'model' => $item,
             'field' => 'length',
             'label' => 'Длина'
         )
