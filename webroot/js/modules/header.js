@@ -11,7 +11,7 @@ var AL_Header = (function(me, $) {
 
         bind = function() {
 
-            if (Detectizr.device.type !== 'mobile') {
+            if (Detectizr.device.type !== 'mobile' && Detectizr.device.type !== 'tablet') {
                 $(window).on('scroll', createThrottled(changeState, 100));
                 $(window).on('resize', createThrottled(changeState, 250));
             }
@@ -43,7 +43,7 @@ var AL_Header = (function(me, $) {
         headerShouldBeMinimized = function() {
             var viewportWidth = $(window).width();
 
-            return (Detectizr.device.type !== 'mobile') && ((viewportWidth <= minDocumentWidth) ||
+            return (Detectizr.device.type !== 'mobile' && Detectizr.device.type !== 'tablet') && ((viewportWidth <= minDocumentWidth) ||
                 (viewportWidth > minDocumentWidth && viewportWidth <= maxMinimizedHeaderWidth));
         },
 

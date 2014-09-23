@@ -19,8 +19,6 @@ var AL_CallbackPopup = function(me, $) {
 
         cache = {},
 
-        phoneIsValid = false,
-
         bind = function() {
             $(document).on('tap', eventHandlers.onDocumentClick);
             $(document).on('tap', '.' + classMap.closeBtn , hide);
@@ -64,18 +62,14 @@ var AL_CallbackPopup = function(me, $) {
 
             cache.descInitText = cache.desc.text();
 
-            phoneIsValid = false;
-
             cache.inputs.slice().each(function() {
                 var input = $(this);
 
                 cache[input.attr('name') + 'Input'] = input;
 
                 if ($(this).attr('name') === 'phone') {
-                    input.mask("+7 (999)999-99-99", {
-                        completed: function() {
-                            phoneIsValid = true;
-                        }
+                    input.inputmask("+7 (999)999-99-99", {
+                        showMaskOnHover: false
                     });
                 }
             });
@@ -101,10 +95,10 @@ var AL_CallbackPopup = function(me, $) {
             popup = $('<div class="' + classMap.root + '">' +
                          '<p class="call-back-popup__head">Заказать обратный звонок</p>' +
                          '<div class="' + classMap.input + '_container">' +
-                           '<input class="' + classMap.input + '" name="fio" type="text" placeholder="Ваше имя"/>' +
+                           '<input class="' + classMap.input + '" name="fio" type="text" placeholder="Ваше имя" tab-index="1"/>' +
                          '</div>' +
                          '<div class="' + classMap.input + '_container">' +
-                           '<input class="' + classMap.input + '" name="phone" type="text" placeholder="Номер телефона"/>' +
+                           '<input class="' + classMap.input + '" name="phone" type="text" placeholder="Номер телефона" tab-index="2"/>' +
                          '</div>' +
                          '<p class="' + classMap.desc + '">Мы перезвоним вам  в течение 5 минут</p>' +
                          '<div class="' + classMap.orderBtn + '">Заказать звонок</div>' +
@@ -187,16 +181,16 @@ var AL_CallbackPopup = function(me, $) {
                 }
 
                 cache.fioInput[fio ? 'removeClass' : 'addClass']('invalid');
-                cache.phoneInput[phoneIsValid ? 'removeClass' : 'addClass']('invalid');
+                cache.phoneInput[cache.phoneInput.inputmask('isComplete') ? 'removeClass' : 'addClass']('invalid');
 
-                if (fio && phoneIsValid) {
+                if (fio && cache.phoneInput.inputmask('isComplete')) {
                     send();
                 }
             },
 
             onCallbackBtnClick: function() {
                 var btn = $(this),
-                    isFixed =  (Detectizr.device.type !== 'mobile') && btn.closest('.header').length,
+                    isFixed =  (Detectizr.device.type !== 'mobile' && Detectizr.device.type !== 'tablet') && btn.closest('.header').length,
                     options = {
                         isFixed: isFixed
                     };

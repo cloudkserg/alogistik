@@ -30,8 +30,6 @@ var AL_OrderPopup = function(me, $) {
 
         closeOnOrderBtnClick = false,
 
-        orderPhoneIsValid = false,
-
         bind = function() {
             $(document).on('tap', '.' + classMap.overlay, hide);
             $(document).on('tap', '.' + classMap.root, eventHandlers.onInnerClick);
@@ -82,6 +80,8 @@ var AL_OrderPopup = function(me, $) {
             }).appendTo(popupInnerEl);
 
             if (type === 'material') {
+                popupData.units = (popupData.unit.indexOf('тонн') + 1) ? 'tonns' : 'meters';
+
                 $('<p class="' + specificClass + '__desc">'+ data.desc +'</p>').appendTo(popupContent);
 
                 if (data.fractions && data.fractions.length) {
@@ -138,6 +138,10 @@ var AL_OrderPopup = function(me, $) {
                     text: data.technicType
                 }).appendTo(popupContent);
 
+                if (data.desc) {
+                    $('<p class="' + specificClass + '__desc">'+ data.desc +'</p>').appendTo(popupContent);
+                }
+
                 var technicParams = $('<div/>', {
                     class: 'technic-params'
                 });
@@ -169,15 +173,15 @@ var AL_OrderPopup = function(me, $) {
 
             $('<div class="' + classMap.orderForm + '">' +
                 '<div class="order-popup__order_form_field_container orderFirstLastName">' +
-                    '<input class="' + classMap.orderFormField + '" type="text" placeholder="Имя и фамилия"/>' +
+                    '<input class="' + classMap.orderFormField + '" type="text" placeholder="Имя и фамилия" tab-index="1"/>' +
                     '<span class="order-popup__order_form_field_desc">На это имя будет оформлен заказ</span>' +
                 '</div>' +
                 '<div class="order-popup__order_form_field_container orderPhone">' +
-                    '<input class="' + classMap.orderFormField + '" type="text" placeholder="+7 (___)___-__-__"/>' +
+                    '<input class="' + classMap.orderFormField + '" type="text" placeholder="+7 (___)___-__-__" tab-index="2"/>' +
                     '<span class="order-popup__order_form_field_desc">По этому телефону мы позвоним,<br/>чтобы уточнить детали заказа</span>' +
                 '</div>' +
                 '<div class="order-popup__order_form_field_container orderAddress">' +
-                    '<input class="' + classMap.orderFormField + '" type="text" placeholder="Адрес доставки"/>' +
+                    '<input class="' + classMap.orderFormField + '" type="text" placeholder="Адрес доставки" tab-index="3"/>' +
                     '<span class="order-popup__order_form_field_desc">На этот адрес мы доставим заказ</span>' +
                 '</div>' +
               '</div>' +
@@ -203,10 +207,8 @@ var AL_OrderPopup = function(me, $) {
 
             $('input, textarea').placeholder();
 
-            cache.orderFormPhoneInput.mask("+7 (999)999-99-99", {
-                completed: function() {
-                    orderPhoneIsValid = true;
-                }
+            cache.orderFormPhoneInput.inputmask("+7 (999)999-99-99", {
+                showMaskOnHover: false
             });
 
             if (type === 'material') {
@@ -313,8 +315,6 @@ var AL_OrderPopup = function(me, $) {
 
                 closeOnOrderBtnClick = false;
 
-                orderPhoneIsValid = false;
-
                 popup.remove();
 
                 hideOverlay();
@@ -419,6 +419,8 @@ var AL_OrderPopup = function(me, $) {
 
                 converter.setMaterialByText(popupData.materialName);
 
+                converter.swap(popupData.units);
+
                 converter.show();
             },
 
@@ -438,7 +440,9 @@ var AL_OrderPopup = function(me, $) {
                     }
                 }
 
-                cache.materialWeightUnit.text(AL_Converter.getUnitsEnding(cache.materialWeightInput.val(), ['тонна', 'тонны', 'тонн']));
+                cache.materialWeightUnit.text((popupData.units === 'tonns') ?
+                    AL_Converter.getUnitsEnding(cache.materialWeightInput.val(), ['тонна', 'тонны', 'тонн']) :
+                    popupData.unit);
 
                 if (!cache.materialWeightInput.val().length) {
                     return false;
@@ -496,7 +500,7 @@ var AL_OrderPopup = function(me, $) {
                         cache.orderFormFLNameInputDescEl.html(cache.orderFormFLNameInputDesc);
                     }
 
-                    if (!orderPhoneIsValid) {
+                    if (!cache.orderFormPhoneInput.inputmask("isComplete")) {
                         cache.orderFormPhoneInputContainer.addClass('not_valid');
                         cache.orderFormPhoneInputDescEl.html('Необходимо ввести номер телефона');
                     }
@@ -531,7 +535,7 @@ var AL_OrderPopup = function(me, $) {
                     }
                 }
                 else if ($(this)[0] === cache.orderFormPhoneInput[0]) {
-                    if (orderPhoneIsValid && cache.orderFormPhoneInputContainer.hasClass('not_valid')) {
+                    if (cache.orderFormPhoneInput.inputmask("isComplete") && cache.orderFormPhoneInputContainer.hasClass('not_valid')) {
                         cache.orderFormPhoneInputContainer.removeClass('not_valid');
                         cache.orderFormPhoneInputDescEl.html(cache.orderFormPhoneInputDesc);
                     }

@@ -4,6 +4,7 @@ var AL_Converter = function(me, $) {
             converter: $('.converter'),
             materialChooser: $('.converter__material_chooser'),
             docket: $('.converter__docket'),
+            clickArea: $('.converter__click_area'),
             inputContainer: $('.converter__input_container'),
             input: $('.converter__input'),
             swapBtn: $('.converter__swap_btn'),
@@ -22,15 +23,18 @@ var AL_Converter = function(me, $) {
 
         needPreventHide = false,
 
-        units = cache.inputContainer.data('units'),
+        resultChanged = false,
+
+        currentUnits = cache.inputContainer.data('units'),
 
         bind = function() {
             cache.docket.on('tap', eventHandlers.onDocketClick);
+            cache.clickArea.on('tap', eventHandlers.onDocketClick);
             cache.docket.on('mouseenter', eventHandlers.onDocketMouseEnter);
             cache.converter.on('mouseleave', eventHandlers.onConverterMouseLeave);
             cache.input.on('keypress', eventHandlers.onInputKeyPress);
             cache.input.on('keyup', eventHandlers.onInputKeyup);
-            cache.swapBtn.on('tap', eventHandlers.onSwapBtnClick);
+            cache.swapBtn.on('tap', swap);
             cache.infoBtn.on('tap', eventHandlers.onInfoBtnClick);
             $(document).on('tap', eventHandlers.onDocumentClick);
 
@@ -56,14 +60,23 @@ var AL_Converter = function(me, $) {
         },
 
         setResult = function() {
-            var result = convert(cache.input.val(), units);
+            if (resultChanged) {
+                resultChanged = false;
+
+                return;
+            }
+
+            var result = convert(cache.input.val(), currentUnits);
 
             cache.result.text(result);
 
-            if (units === 'meters') {
+            if (currentUnits === 'meters') {
                 setTimeout(function() {
                     cache.resultUnits.text(getUnitsEnding(result, ['тонна', 'тонны', 'тонн']));
                 }, 1000);
+            }
+            else {
+                cache.currentUnits.text(getUnitsEnding(cache.input.val(), ['тонна', 'тонны', 'тонн']));
             }
         },
 
@@ -186,26 +199,9 @@ var AL_Converter = function(me, $) {
                     }
                 }
 
-                if (units === 'tonns') {
+                if (currentUnits === 'tonns') {
                     cache.currentUnits.text(getUnitsEnding(cache.input.val(), ['тонна', 'тонны', 'тонн']));
                 }
-
-                setResult();
-            },
-
-            onSwapBtnClick: function() {
-                var nextUnits = $(this).attr('data-units'),
-                    prevUnitsDesc = cache.currentUnits.text(),
-                    nextUnitsDesc = cache.resultUnits.text();
-
-                cache.inputContainer.attr('data-units', nextUnits);
-
-                $(this).attr('data-units', units);
-
-                units = nextUnits;
-
-                cache.currentUnits.text(nextUnitsDesc);
-                cache.resultUnits.text(prevUnitsDesc);
 
                 setResult();
             },
@@ -261,10 +257,30 @@ var AL_Converter = function(me, $) {
             }
 
             return ending;
+        },
+
+        swap = function(units) {
+            var nextUnits = cache.swapBtn.attr('data-units'),
+                prevUnitsDesc = cache.currentUnits.text(),
+                nextUnitsDesc = cache.resultUnits.text();
+
+            if (currentUnits === units) return;
+
+            cache.inputContainer.attr('data-units', nextUnits);
+
+            cache.swapBtn.attr('data-units', currentUnits);
+
+            currentUnits = nextUnits;
+
+            cache.currentUnits.text(nextUnitsDesc);
+            cache.resultUnits.text(prevUnitsDesc);
+
+            setResult();
         };
 
     cache.materialChooser.selectize({
         create: true,
+        openOnFocus: false,
 
         onInitialize: function() {
             var me = this;
@@ -289,6 +305,8 @@ var AL_Converter = function(me, $) {
         onChange: function(value) {
             materialDestiny = this.options[value] && parseFloat(this.options[value].destiny);
 
+            resultChanged = true;
+
             setResult();
         }
     });
@@ -310,7 +328,9 @@ var AL_Converter = function(me, $) {
 
         isOpened: isOpened,
 
-        setMaterialByText: setMaterialByText
+        setMaterialByText: setMaterialByText,
+
+        swap: swap
     }
 
 }(AL_Converter || {}, jQuery);

@@ -11,13 +11,13 @@
         )
     );
     ?>
-    <?php /*$this->widget('TextareaField',array(
+    <?php $this->widget('TextareaField',array(
             'model' => $item,
             'field' => 'text',
             'label' => 'Текст',
-            'fck'   => true
+            'fck'   => false
         )
-    );*/
+    );
     ?>
     <?php $this->widget('ListField', array(
             'model'   => $item,
