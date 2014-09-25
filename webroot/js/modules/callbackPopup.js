@@ -100,7 +100,7 @@ var AL_CallbackPopup = function(me, $) {
                          '<div class="' + classMap.input + '_container">' +
                            '<input class="' + classMap.input + '" name="phone" type="text" placeholder="Номер телефона" tab-index="2"/>' +
                          '</div>' +
-                         '<p class="' + classMap.desc + '">Мы перезвоним вам  в течение 5 минут</p>' +
+                         '<p class="' + classMap.desc + '">Мы перезвоним вам  в течение 30 минут</p>' +
                          '<div class="' + classMap.orderBtn + '">Заказать звонок</div>' +
                          '<div class="' + classMap.resendOrderBtn + '">Повторить</div>' +
                          '<div class="' + classMap.closeBtn + '"></div>' +

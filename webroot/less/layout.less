@@ -1851,10 +1851,6 @@ a[href^=tel] {
   }
 }
 
-.mobile .converter, .tablet .converter {
-  display: none;
-}
-
 .no-cssanimations .converter {
   right: -320px;
 }
@@ -1932,34 +1928,70 @@ a[href^=tel] {
     }
 
     .converter__material_chooser {
+      width: 240px !important;
+      border-radius: 4px !important;
+      background: #fff !important;
+      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.50);
+      border: none !important;
+      height: 40px !important;
+      font-size: 16px !important;
+      line-height: 25px !important;
+      box-sizing: border-box;
+      padding: 8px !important;
+    }
+
+    .selectboxit-container {
       margin: 0 0 10px;
 
-      .selectize-input.selectize-input.selectize-input {
-        border-radius: 4px;
-        background: #fff;
-        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.50);
-        border: none;
-        height: 40px;
-        font-size: 16px;
-        line-height: 25px;
-
-        &.dropdown-active:after {
-          margin-top: -2px;
-          border-color: transparent transparent @defLinkColor transparent;
-        }
-
-        &:after {
-          margin-top: -2px;
-          border-color: @defLinkColor transparent transparent transparent;
-        }
+      * {
+        font: inherit !important;
       }
 
-      .selectize-dropdown.selectize-dropdown.selectize-dropdown {
-        border: none;
-        margin: -3px 0 0 0;
-        box-shadow: none;
+      .selectboxit-options {
+        border-radius: 0 0 4px 4px !important;
       }
     }
+      
+      .selectboxit-text {
+        text-indent: 0px !important;
+        font-size: 16px !important;
+        line-height: 25px !important;
+      }
+
+      .selectboxit-arrow-container {
+        height: 25px !important;
+      }
+
+        .selectboxit-default-arrow {
+          border-top-color: #1c91cb !important;
+        }
+
+      .selectboxit-options {
+        border: none !important;
+        margin: -3px 0 0 0 !important;
+        box-shadow: none !important;
+      }
+
+      .selectboxit-option-first {
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+      }
+
+      .selectboxit-option-last {
+        border-top-right-radius: 4px !important;
+        border-top-left-radius: 4px !important;
+      }
+      
+      .selectboxit-option-anchor {
+        padding: 0;
+        font-size: 12px !important;
+        line-height: 30px !important;
+      }
+
+      .selectboxit-list>.selectboxit-focus>.selectboxit-option-anchor {
+        background: #f5fafd !important;
+        color: @defHeadColor !important;
+      }
 
     .converter__info_btn {
       width: 40px;

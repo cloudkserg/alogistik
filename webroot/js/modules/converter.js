@@ -15,7 +15,7 @@ var AL_Converter = function(me, $) {
             info: $('.converter__info')
         },
 
-        materialDestiny = 0,
+        materialDensity = 0,
 
         opened = false,
 
@@ -23,11 +23,12 @@ var AL_Converter = function(me, $) {
 
         needPreventHide = false,
 
-        resultChanged = false,
-
         currentUnits = cache.inputContainer.data('units'),
 
+        selectBox = null,
+
         bind = function() {
+            cache.materialChooser.filter('select').on('change', eventHandlers.onMaterialChooserChange);
             cache.docket.on('tap', eventHandlers.onDocketClick);
             cache.clickArea.on('tap', eventHandlers.onDocketClick);
             cache.docket.on('mouseenter', eventHandlers.onDocketMouseEnter);
@@ -49,23 +50,17 @@ var AL_Converter = function(me, $) {
             var result = 0;
 
             if (units === 'tonns') {
-                result = value / materialDestiny;
+                result = value / materialDensity;
             }
 
             if (units === 'meters') {
-                result = value * materialDestiny;
+                result = value * materialDensity;
             }
 
             return result;
         },
 
         setResult = function() {
-            if (resultChanged) {
-                resultChanged = false;
-
-                return;
-            }
-
             var result = convert(cache.input.val(), currentUnits);
 
             cache.result.text(result);
@@ -131,12 +126,9 @@ var AL_Converter = function(me, $) {
         },
 
         setMaterialByText = function(materialName) {
-            var selectize = cache.materialChooser[0].selectize,
-                options = selectize.options;
-
-            $.each(options, function(index, option) {
-                if (option.text === materialName) {
-                    selectize.setValue(option.value);
+            cache.materialChooser.filter('select').find('option').each(function(index) {
+                if ($(this).text() === materialName) {
+                    selectBox.selectOption(index);
                 }
             });
         },
@@ -233,6 +225,12 @@ var AL_Converter = function(me, $) {
                 if (!$(event.target).closest('.converter').length && !needPreventHide && opened) {
                     hide();
                 }
+            },
+
+            onMaterialChooserChange: function(e) {
+                materialDensity = e.target.value;
+
+                setResult();
             }
         },
 
@@ -278,44 +276,20 @@ var AL_Converter = function(me, $) {
             setResult();
         };
 
-    cache.materialChooser.selectize({
-        create: true,
-        openOnFocus: false,
-
-        onInitialize: function() {
-            var me = this;
-
-            $.each(me.options, function(index, option) {
-                if (!parseFloat(option.destiny)) {
-                    me.removeOption(option.value);
-                }
-            });
-
-            me.refreshOptions();
-
-            for (var firstKey in me.options) break;
-
-            firstKey = +firstKey;
-
-            me.setValue(firstKey);
-
-            materialDestiny = parseFloat(me.options[firstKey].destiny);
-        },
-
-        onChange: function(value) {
-            materialDestiny = this.options[value] && parseFloat(this.options[value].destiny);
-
-            resultChanged = true;
-
-            setResult();
+    selectBox = cache.materialChooser.selectBoxIt({
+        autoWidth: false,
+        populate: {
+            data: $.map(cache.materialChooser.data('options').data, function(item){return (parseFloat(item.value)) ? item : null})
         }
-    });
+    }).data("selectBox-selectBoxIt");
+
+    setTimeout(function() {
+        cache.materialChooser.filter('select').trigger('change');
+    }, 300);
 
     return {
         init: function() {
             bind();
-
-            cache.input.trigger('keyup');
         },
 
         getUnitsEnding: getUnitsEnding,

@@ -125,7 +125,7 @@ var AL_OrderPopup = function(me, $) {
 
                 $('<div class="order-technic-popup__price_container">' +
                     '<p class="order-technic-popup__price">' + ((data.priceFrom) ? 'от ' : '') + '<span class="order-technic-popup__price_digits">' + data.price + '<span class="ruble">p</span></span> в час</p>' +
-                    '<p class="order-technic-popup__price_desc">Цена может варьироваться<br/>в зависимости от продолжительности работы</p>' +
+                    '<p class="order-technic-popup__price_desc">' + ((!data.min_order) ? 'Цена может варьироваться<br/>в зависимости от продолжительности работы' : 'Минимальный заказ ' + data.min_order + ' ' + AL_Converter.getUnitsEnding(data.min_order, ['час', 'часа', 'часов'])) + '</p>' +
                   '</div>').appendTo(mainContent);
 
                 $('<p/>', {
@@ -417,9 +417,9 @@ var AL_OrderPopup = function(me, $) {
 
                 converter.preventHideOnDocumentClick(true);
 
-                converter.setMaterialByText(popupData.materialName);
-
                 converter.swap(popupData.units);
+
+                converter.setMaterialByText(popupData.materialName);
 
                 converter.show();
             },
