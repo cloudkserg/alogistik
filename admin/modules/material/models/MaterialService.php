@@ -62,8 +62,8 @@ class MaterialService extends CmsModel
     public function relations()
     {
         return array(
-            'mainFraction' => array(self::HAS_ONE, 'MaterialFraction', 'material_service_id', 'scopes' => array('main')),
-            'fractions' => array(self::HAS_MANY, 'MaterialFraction', 'material_service_id'),
+            'mainFraction' => array(self::HAS_ONE, 'MaterialFraction', 'material_service_id', 'scopes' => array('main', 'sort')),
+            'fractions' => array(self::HAS_MANY, 'MaterialFraction', 'material_service_id', 'scopes' => array('sort')),
             'material' => array(self::BELONGS_TO, 'Material', 'material_id'),
 
             'images' => ImageRelationDescription::create($this->abbrModel),

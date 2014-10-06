@@ -61,7 +61,7 @@ class CarService extends CmsModel
     {
         return array(
             'car' => array(self::BELONGS_TO, 'Car', 'car_id'),
-            'params' => array(self::HAS_MANY, 'CarServiceParam', 'car_service_id'),
+            'params' => array(self::HAS_MANY, 'CarServiceParam', 'car_service_id', 'scopes' => array('sort')),
 
             'images' => ImageRelationDescription::create($this->abbrModel),
             'pubImages' => ImageRelationDescription::createPublished($this->abbrModel),

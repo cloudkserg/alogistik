@@ -44,7 +44,7 @@ class Service extends CmsModel
     public function relations()
     {
         return array(
-            'serviceItems' => array(self::HAS_MANY, 'ServiceItem', 'service_id')
+            'serviceItems' => array(self::HAS_MANY, 'ServiceItem', 'service_id', 'scopes' => array('sort'))
         );
     }
 
