@@ -196,12 +196,17 @@ var AL_OrderPopup = function(me, $) {
                     '<p class="order-popup__order_note">Цена является предварительной.<br/>Менеджер свяжется с вами<br/>для уточнения деталей</p>' +
                 '</div>' +
                 '<div class="order-popup__call_back_container">' +
-                    '<p class="order-popup__call_back_phone_number">55-66-77</p>' +
+                    //'<a class="order-popup__call_back_phone_number"></a>' +
                     '<a class="order-popup__call_back_btn" href="#book-call">Заказать обратный звонок</a>' +
                 '</div>' +
               '</div>').appendTo(popupContent);
 
             popup.appendTo('body');
+
+            $('<a class="order-popup__call_back_phone_number"></a>')
+                .prependTo('.order-popup__call_back_container')
+                .attr('href', 'tel:' + AL_Header.getPhoneNumber().replace(/\s/g, '').replace('3812', '(3812)'))
+                .text(AL_Header.getPhoneNumber().slice(-8));
 
             createCache();
 

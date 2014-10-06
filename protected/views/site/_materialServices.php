@@ -8,7 +8,7 @@
 
             <div class="service__desc">
                 <h2 class="service__head">Продажа сыпучих строительных материалов</h2>
-                <p class="service__desc_additional">Бесплатная&nbsp;доставка для грузов больше 5&nbsp;тонн</p>
+                <p class="service__desc_additional">Скидки<br/>постоянным<br/>клиентам</p>
 
                 <?php if (isset($page)) : ?>
                    <a class="service__download_price_btn" href="<?=PFileHelper::firstFile($page)?>" target="_blank">Скачать прайс-лист</a>

@@ -30,7 +30,7 @@
         </div><!-- /end .contacts__map -->
         <div class="contacts__sticker">
 			<p class="contacts__item"><b>ООО «АльфаЛогистик»</b><br/>
-				<a class="contacts__item_phone" href="tel:8(800)200-00-00">8&nbsp;800&nbsp;200&nbsp;00&nbsp;00</a><br>
+				<a class="contacts__item_phone" href="tel:+7(3812)38-26-07">+7&nbsp;(3812)</span>&nbsp;38-26-07</a><br>
 				<a class="contacts__item_email" href="mailto:mail@alogistic.ru">mail@alogistic.ru</a>
             </p>
 			<p class="contacts__item">Юридический адрес:<br/>

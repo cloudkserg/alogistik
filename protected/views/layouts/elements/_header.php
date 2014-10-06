@@ -12,10 +12,12 @@
             </ul>
         </nav>
 
-        <div class="online-call-btn">Звонок онлайн</div>
+      <!--  <a class="online-call-btn zingaya9ba8206dc1d24969adf1405e148a664d" id="zingayaButton9ba8206dc1d24969adf1405e148a664d" href="https://zingaya.com/widget/9ba8206dc1d24969adf1405e148a664d" onclick="window.open(this.href+'?referrer='+escape(window.location.href)+'', '_blank', 'width=236,height=220,resizable=no,toolbar=no,menubar=no,location=no,status=no'); return false;">Звонок онлайн</a> -->
+        
+        <a class="online-call-btn zingaya786ac220b8f07c9057c0a1ea5ea0ea4b" id="zingayaButton786ac220b8f07c9057c0a1ea5ea0ea4b" href="https://zingaya.com/widget/786ac220b8f07c9057c0a1ea5ea0ea4b" onclick="window.open(this.href+'?referrer='+escape(window.location.href)+'', '_blank', 'width=236,height=220,resizable=no,toolbar=no,menubar=no,location=no,status=no'); return false;">Звонок онлайн</a>
 
         <div class="call-back">
-            <p class="call-back__phone_number"><a class="call-back__phone_number_mob_helper" href="tel:+7(3812)55-66-77"><span class="call-back__phone_number_code">+7&nbsp;3812</span>&nbsp;55-66-77</a></p>
+            <p class="call-back__phone_number"><a class="call-back__phone_number_mob_helper" href="tel:+7(3812)38-26-07"><span class="call-back__phone_number_code">+7&nbsp;3812</span>&nbsp;38-26-07</a></p>
             <a class="call-back__btn" href="#book-call">Заказать обратный звонок</a>
         </div>
 

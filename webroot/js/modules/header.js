@@ -17,6 +17,10 @@ var AL_Header = (function(me, $) {
             }
         },
 
+        getPhoneNumber = function() {
+            return $('.call-back__phone_number').text();
+        },
+
         createThrottled = function(fn, interval, scope) {
             var lastCallTime,
                 elapsed,
@@ -86,6 +90,8 @@ var AL_Header = (function(me, $) {
 
         isMinimized: function() {
             return isMinimized;
-        }
+        },
+
+        getPhoneNumber: getPhoneNumber
     }
 }(AL_Header || {}, jQuery));
