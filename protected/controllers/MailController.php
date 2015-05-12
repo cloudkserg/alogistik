@@ -25,8 +25,17 @@ class MailController extends Controller
 
         $mailComponent = new PMailComponent('mail');
         $mailComponent->send(array('filter' => $mailFilter));
+        
+        $component = new SmsComponent();
+        $message = $this->renderFile(Yii::getPathOfAlias('protected.views.sms') . '/send.php', array('filter' => $mailFilter), true);
+        $component->send($message);
+        if ($component->isError()) {
+            var_dump($component->getError());
+        } else {
+            $this->redirect('/site/index');
+        
+        }
 
-        $this->redirect('/site/index');
     }
 
     public function actionCall()
@@ -39,6 +48,7 @@ class MailController extends Controller
 
         $mailComponent = new PMailComponent('call');
         $mailComponent->send(array('filter' => $mailFilter));
+
 
         $this->redirect('/site/index');
     
