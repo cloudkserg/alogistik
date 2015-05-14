@@ -13,6 +13,8 @@ class SmsComponent
 
     private $to;
 
+    private $from;
+
     /**
      * __construct
      *
@@ -22,7 +24,7 @@ class SmsComponent
     {
         $apikey = Yii::app()->params['sms_apikey'];
         $this->pilot = new SMSPilot($apikey);
-        $this->pilot->from = Yii::app()->params['sms_from'];
+        $this->from = Yii::app()->params['sms_from'];
         $this->to = Yii::app()->params['sms_to'];
     
     }
@@ -36,7 +38,7 @@ class SmsComponent
      */
     public function send($message)
     {
-        $this->pilot->send($this->to, $message);   
+        $this->pilot->send($this->to, $message, $this->from);   
         var_dump($this->pilot->success, $this->pilot->status, $this->pilot->error);
     }
 
